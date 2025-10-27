@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Checkout | BlueRidge Meds</title>
+<link rel="stylesheet" href="styles.css" />
+<script defer src="stepper.js"></script>
+<style>
+  body {
+    font-family: "Inter", sans-serif;
+    background: #f9fafb;
+    color: #0f2143;
+    margin: 0;
+  }
+
+  .topbar {
+    background: #fff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 12px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .nav-btn.back {
+    border: none;
+    background: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: #0f2143;
+  }
+  .logo { height: 40px; }
+
+  .stepper-container { margin-top: 20px; }
+
+  .expect-section {
+    background: #fff;
+    border-radius: 10px;
+    padding: 40px 60px;
+    text-align: center;
+    max-width: 1280px;
+    margin: 40px auto 40px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  }
+  .expect-section img.logo-main {
+    width: 110px;
+    margin-bottom: 15px;
+  }
+  .expect-section h3 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 30px;
+    color: #0f2143;
+  }
+  .expect-grid {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .expect-card {
+    background: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    padding: 25px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+  }
+  .expect-card img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+  }
+  .expect-card p {
+    font-weight: 600;
+    color: #0f2143;
+    font-size: 0.95rem;
+  }
+
+  .login-notice {
+    background: #f7f7fa;
+    border-top: 4px solid #1e73be;
+    padding: 14px 20px;
+    max-width: 1280px;
+    margin: 0 auto 40px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #333;
+    font-size: 0.95rem;
+  }
+  .login-notice input[type="checkbox"] { width: 18px; height: 18px; }
+  .login-notice a {
+    color: #1e73be;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .login-notice a:hover { text-decoration: underline; }
+
+  .form-wrap {
+    background: #fff;
+    border-radius: 10px;
+    max-width: 1280px;
+    margin: 0 auto 80px;
+    padding: 40px 60px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  }
+  .form-wrap h3 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #0f2143;
+  }
+  label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+    color: #0f2143;
+  }
+  input, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dfe5ec;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    font-size: 0.95rem;
+  }
+  .form-row { display: flex; gap: 16px; }
+  .form-row div { flex: 1; }
+
+  .checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+  }
+  .checkbox-row input { width: auto; }
+
+  .checkout-btn {
+    background: #0f2143;
+    color: #fff;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    padding: 14px;
+    width: 100%;
+    font-size: 1rem;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background 0.25s ease;
+  }
+  .checkout-btn:hover { background: #6e8398; }
+
+  #shipping-fields {
+    display: none;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #e5e7eb;
+  }
+</style>
+</head>
+<body>
+
+<div class="promo-bar">Discover the New You | Your True You</div>
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="brand" style="left: 18%;">
+      <button class="nav-btn back" onclick="history.back()">←</button>
+      <img class="logo"
+           src="https://blueridgemeds.com/wp-content/uploads/2024/08/KxBL8CTz1ZiDbTn8PeRg1JLSW4.avif"
+           alt="BlueRidge Meds" />
+    </div>
+    <div class="topbar-actions">
+      <button class="nav-btn phone" aria-label="Call">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="#fff" aria-hidden="true">
+          <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.56.57 1 1 0 011 1v3.61a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.61a1 1 0 011 1c0 1.22.2 2.42.57 3.56a1 1 0 01-.24 1.01l-2.32 2.22z"/>
+        </svg>
+      </button>
+      <button class="nav-btn help">Help</button>
+    </div>
+  </header>
+
+<!-- Stepper -->
+<div class="stepper-container">
+  <div class="stepper-inner">
+    <div class="brm-stepper" id="intakeStepper" data-count="5" data-step="4" aria-label="Intake progress">
+      <div class="brm-stepper__wrap" style="--count:5">
+        <div class="brm-stepper__track"></div>
+        <div class="brm-stepper__progress"></div>
+
+        <div class="brm-step" data-step="1"><div class="brm-step__dot">✓</div><div class="brm-step__label">Start</div></div>
+        <div class="brm-step" data-step="2"><div class="brm-step__dot">✓</div><div class="brm-step__label">Information</div></div>
+        <div class="brm-step" data-step="3"><div class="brm-step__dot">✓</div><div class="brm-step__label">Choose Your GLP-1 Plan</div></div>
+        <div class="brm-step brm-step--current" data-step="4"><div class="brm-step__dot">✓</div><div class="brm-step__label">Shipping</div></div>
+        <div class="brm-step" data-step="5"><div class="brm-step__dot">✓</div><div class="brm-step__label">Payment</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Expect Section -->
+<section class="expect-section">
+  <img class="logo-main" src="https://blueridgemeds.com/wp-content/uploads/2024/08/KxBL8CTz1ZiDbTn8PeRg1JLSW4.avif" alt="BlueRidge Meds Logo">
+  <h3>What You Can Expect From Us</h3>
+  <div class="expect-grid">
+    <div class="expect-card">
+      <img src="https://blueridgemeds.com/wp-content/uploads/2025/03/diagnostic.png" alt="Free Medical Review">
+      <p>Free Medical Review</p>
+    </div>
+    <div class="expect-card">
+      <img src="https://blueridgemeds.com/wp-content/uploads/2025/03/package.png" alt="Free and Discreet Shipping">
+      <p>Free and Discreet Shipping</p>
+    </div>
+    <div class="expect-card">
+      <img src="https://blueridgemeds.com/wp-content/uploads/2025/03/center.png" alt="Free Ongoing Support">
+      <p>Free Ongoing Support</p>
+    </div>
+  </div>
+</section>
+
+<!-- Login Notice -->
+<div class="login-notice">
+  <input type="checkbox" id="returning">
+  <label for="returning">Returning customer? <a href="#">Click here to login</a></label>
+</div>
+
+<!-- Checkout Form -->
+<main class="form-wrap">
+  <form id="checkoutForm" onsubmit="return goPayment(event)">
+    <h3>Billing Address</h3>
+    <p style="font-size:0.9rem; color:#6b7280; margin-top:-6px;">
+      Where would you like to have your medication shipped, if prescribed? Note we cannot ship to PO boxes.
+    </p>
+
+    <div class="form-row">
+      <div>
+        <label>First Name</label>
+        <input type="text" required>
+      </div>
+      <div>
+        <label>Last Name</label>
+        <input type="text" required>
+      </div>
+    </div>
+
+    <label>Street Address</label>
+    <input type="text" required>
+    <input type="text" placeholder="Apartment, suite, unit, etc. (optional)">
+
+    <div class="form-row">
+      <div>
+        <label>City</label>
+        <input type="text" required>
+      </div>
+      <div>
+        <label>State</label>
+        <select required>
+          <option value="">Select state</option>
+          <option value="AL">Alabama</option>
+          <option value="AK">Alaska</option>
+          <option value="AZ">Arizona</option>
+          <option value="AR">Arkansas</option>
+          <option value="CA">California</option>
+          <option value="CO">Colorado</option>
+          <option value="CT">Connecticut</option>
+          <option value="DE">Delaware</option>
+          <option value="FL">Florida</option>
+          <option value="GA">Georgia</option>
+          <option value="HI">Hawaii</option>
+          <option value="ID">Idaho</option>
+          <option value="IL">Illinois</option>
+          <option value="IN">Indiana</option>
+          <option value="IA">Iowa</option>
+          <option value="KS">Kansas</option>
+          <option value="KY">Kentucky</option>
+          <option value="LA">Louisiana</option>
+          <option value="ME">Maine</option>
+          <option value="MD">Maryland</option>
+          <option value="MA">Massachusetts</option>
+          <option value="MI">Michigan</option>
+          <option value="MN">Minnesota</option>
+          <option value="MS">Mississippi</option>
+          <option value="MO">Missouri</option>
+          <option value="MT">Montana</option>
+          <option value="NE">Nebraska</option>
+          <option value="NV">Nevada</option>
+          <option value="NH">New Hampshire</option>
+          <option value="NJ">New Jersey</option>
+          <option value="NM">New Mexico</option>
+          <option value="NY">New York</option>
+          <option value="NC">North Carolina</option>
+          <option value="ND">North Dakota</option>
+          <option value="OH">Ohio</option>
+          <option value="OK">Oklahoma</option>
+          <option value="OR">Oregon</option>
+          <option value="PA">Pennsylvania</option>
+          <option value="RI">Rhode Island</option>
+          <option value="SC">South Carolina</option>
+          <option value="SD">South Dakota</option>
+          <option value="TN">Tennessee</option>
+          <option value="TX">Texas</option>
+          <option value="UT">Utah</option>
+          <option value="VT">Vermont</option>
+          <option value="VA">Virginia</option>
+          <option value="WA">Washington</option>
+          <option value="WV">West Virginia</option>
+          <option value="WI">Wisconsin</option>
+          <option value="WY">Wyoming</option>
+          <option value="DC">District of Columbia</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div>
+        <label>ZIP Code</label>
+        <!-- DIGIT-ONLY LOCK -->
+        <input id="bill-zip" type="text" required inputmode="numeric" autocomplete="postal-code"
+               pattern="^\d{5}(\d{4})?$" title="Enter 5 or 9 digits (no dashes)." maxlength="9">
+      </div>
+      <div>
+        <label>Phone</label>
+        <!-- DIGIT-ONLY LOCK -->
+        <input id="bill-phone" type="tel" required inputmode="numeric" autocomplete="tel"
+               pattern="^\d{10}$" title="Enter 10 digits." maxlength="10">
+      </div>
+    </div>
+
+    <label>Email Address</label>
+    <input type="email" required>
+
+    <div class="checkbox-row">
+      <input type="checkbox" id="newsletter">
+      <label for="newsletter">Sign me up to receive email updates and news (optional)</label>
+    </div>
+
+    <label>Create Account Password</label>
+    <input type="password" required>
+
+    <h3 style="margin-top:30px;">Shipping Address</h3>
+    <div class="checkbox-row">
+      <input type="checkbox" id="diff-address" onchange="toggleShipping()">
+      <label for="diff-address">Ship to a different address?</label>
+    </div>
+
+    <div id="shipping-fields">
+      <div class="form-row">
+        <div>
+          <label>First Name</label>
+          <input type="text">
+        </div>
+        <div>
+          <label>Last Name</label>
+          <input type="text">
+        </div>
+      </div>
+
+      <label>Street Address</label>
+      <input type="text">
+      <input type="text" placeholder="Apartment, suite, unit, etc. (optional)">
+
+      <div class="form-row">
+        <div>
+          <label>Town / City</label>
+          <input type="text">
+        </div>
+        <div>
+          <label>State / County</label>
+          <select>
+            <option value="">Select State</option>
+            <option>Virginia</option>
+            <option>California</option>
+            <option>Texas</option>
+            <option>Florida</option>
+            <option>New York</option>
+          </select>
+        </div>
+      </div>
+
+      <label>Postcode / ZIP</label>
+      <!-- DIGIT-ONLY LOCK (Shipping) -->
+      <input id="ship-zip" type="text" inputmode="numeric"
+             pattern="^\d{5}(\d{4})?$" title="Enter 5 or 9 digits (no dashes)." maxlength="9">
+    </div>
+
+    <button class="checkout-btn" type="submit">Continue & Confirm</button>
+  </form>
+</main>
+
+<script>
+function toggleShipping() {
+  const section = document.getElementById('shipping-fields');
+  const inputs = section.querySelectorAll('input, select');
+  if (document.getElementById('diff-address').checked) {
+    section.style.display = 'block';
+    inputs.forEach(i => i.setAttribute('required', 'required'));
+  } else {
+    section.style.display = 'none';
+    inputs.forEach(i => i.removeAttribute('required'));
+  }
+}
+
+/* --- DIGIT-ONLY LOCK HELPERS (ZIP/Phone) --- */
+function lockToDigits(el, maxLen) {
+  function filter() {
+    const old = el.value;
+    const onlyDigits = old.replace(/\D+/g, '');
+    el.value = maxLen ? onlyDigits.slice(0, maxLen) : onlyDigits;
+  }
+  el.addEventListener('input', filter);
+  el.addEventListener('paste', function(e){
+    e.preventDefault();
+    const text = (e.clipboardData || window.clipboardData).getData('text') || '';
+    const onlyDigits = text.replace(/\D+/g, '');
+    const current = el.value;
+    const selStart = el.selectionStart || current.length;
+    const selEnd = el.selectionEnd || current.length;
+    const next = current.slice(0, selStart) + onlyDigits + current.slice(selEnd);
+    el.value = maxLen ? next.slice(0, maxLen) : next;
+  });
+  el.addEventListener('drop', function(e){ e.preventDefault(); });
+}
+
+/* Attach locks after DOM is ready */
+document.addEventListener('DOMContentLoaded', function(){
+  const billZip = document.getElementById('bill-zip');
+  const billPhone = document.getElementById('bill-phone');
+  const shipZip = document.getElementById('ship-zip');
+
+  if (billZip)   lockToDigits(billZip, 9);   // 5 or 9 digits (no dash)
+  if (billPhone) lockToDigits(billPhone, 10); // exactly 10 digits
+  if (shipZip)   lockToDigits(shipZip, 9);
+});
+
+function goPayment(e) {
+  e.preventDefault();
+
+  const form = document.getElementById('checkoutForm');
+
+  // Let browser show native validation bubbles if any rule fails
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return false;
+  }
+
+  // Collect billing fields (keep your original indexing logic intact)
+  const billingInfo = {
+    firstName: document.querySelectorAll('input')[0].value,
+    lastName: document.querySelectorAll('input')[1].value,
+    street: document.querySelectorAll('input')[2].value,
+    city: document.querySelectorAll('input')[4].value,
+    state: document.querySelector('select').value,
+    zip: document.querySelectorAll('input')[5].value,
+    phone: document.querySelectorAll('input')[6].value,
+    email: document.querySelectorAll('input')[7].value
+  };
+
+  localStorage.setItem('billingInfo', JSON.stringify(billingInfo));
+  window.location.href = 'payment.html';
+  return false;
+}
+</script>
+</body>
+</html>

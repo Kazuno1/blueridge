@@ -1,0 +1,88 @@
+<!doctype html>
+  <!-- Simple homepage hero using the image as the main visual -->
+  <section class="hero" style="background-image: url('https://blueridgemeds.com/wp-content/uploads/2024/08/KxBL8CTz1ZiDbTn8PeRg1JLSW4.avif'); background-size: cover; background-position: center; min-height: 70vh; display:flex; align-items:center;">
+    <div class="hero-inner" style="background: rgba(255,255,255,0.85); margin: 0 auto; max-width:900px; padding:48px; border-radius:12px;">
+      <h1 class="hero-title">
+        <span class="soft">Your Path to Wellness,</span>
+        <span class="bold">Backed by Science</span>
+      </h1>
+
+      <p class="hero-sub">
+        Personalized Prescription Weight Loss Designed Just for You
+      </p>
+
+      <a id="consultBtn" class="cta-btn" href="get-started.html">Start Free Consult</a>
+
+    </div>
+  </section>
+
+  <!-- use the shared handler for robust navigation -->
+  <div class="stepper-container">
+      <div class="stepper-inner">
+        <!-- reuse the same stepper visuals as preliminary -->
+        <div class="brm-stepper" id="intakeStepper" data-count="5" data-step="2" aria-label="Intake progress" role="group">
+          <div class="brm-stepper__wrap" style="--count:5">
+            <div class="brm-stepper__track" aria-hidden="true"></div>
+            <div class="brm-stepper__progress" aria-hidden="true"></div>
+            <div class="brm-step brm-step--current" data-step="1">
+              <div class="brm-step__dot" aria-hidden="true">✓</div>
+              <div class="brm-step__label">Start</div>
+            </div>
+            <div class="brm-step" data-step="2">
+              <div class="brm-step__dot" aria-hidden="true">✓</div>
+              <div class="brm-step__label">Information</div>
+            </div>
+            <div class="brm-step" data-step="3">
+              <div class="brm-step__dot" aria-hidden="true">✓</div>
+              <div class="brm-step__label">Choose Your GLP-1 Plan</div>
+            </div>
+            <div class="brm-step" data-step="4">
+              <div class="brm-step__dot" aria-hidden="true">✓</div>
+              <div class="brm-step__label">Shipping</div>
+            </div>
+            <div class="brm-step" data-step="5">
+              <div class="brm-step__dot" aria-hidden="true">✓</div>
+              <div class="brm-step__label">Payment</div>
+    <!-- /STEP PROGRESS BAR -->
+
+    <!-- GOAL QUESTION CARD -->
+    <section class="quiz-card" id="goalStep" aria-labelledby="goalTitle">
+      <p class="eyebrow">YOU DID IT</p>
+      <h2 id="goalTitle">What is your primary goal for weight loss?</h2>
+      <p class="sub">Select the most important outcome:</p>
+
+      <form id="goalForm">
+        <label class="choice">
+          <input type="radio" name="goal" value="overall" />
+          <span class="choice__box" aria-hidden="true"></span>
+          <span class="choice__label">Overall health improvement</span>
+        </label>
+
+        <label class="choice">
+          <input type="radio" name="goal" value="target" />
+          <span class="choice__box" aria-hidden="true"></span>
+          <span class="choice__label">Specific weight loss target</span>
+        </label>
+
+        <label class="choice">
+          <input type="radio" name="goal" value="energy" />
+          <span class="choice__box" aria-hidden="true"></span>
+          <span class="choice__label">Increased Energy</span>
+        </label>
+
+        <label class="choice">
+          <input type="radio" name="goal" value="composition" />
+          <span class="choice__box" aria-hidden="true"></span>
+          <span class="choice__label">Improved body composition</span>
+        </label>
+
+        <button type="submit" class="btn btn--primary" id="goalSubmit" disabled>
+          Continue
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <script src="stepper.js"></script>
+</body>
+</html>

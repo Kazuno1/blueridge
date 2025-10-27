@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Review Your Items – BlueRidge Meds</title>
+<link rel="stylesheet" href="styles.css" />
+<script defer src="stepper.js"></script>
+<style>
+  body {
+    background: #f8fafc;
+    color: #0f2143;
+    font-family: "Inter", sans-serif;
+    margin: 0;
+  }
+
+  .review-wrap {
+    max-width: 1100px;
+    margin: 40px auto 80px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 50px 70px;
+    box-shadow: 0 4px 18px rgba(17,24,39,.05);
+  }
+
+  .review-header h2 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #2c3e66;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .review-header h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0f2143;
+    margin-bottom: 30px;
+  }
+
+  .section-title {
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: #0f2143;
+    margin-top: 40px;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 8px;
+  }
+
+  /* === ITEM ROW === */
+  .item-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #dfe5ec;
+    padding: 20px 0;
+  }
+
+  /* Consistent container for image + text */
+  .item-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex: 1;
+  }
+
+  /* === IMAGE FIX (SAME SIZE & RATIO) === */
+  .item-left img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 10px;
+    background: #f4f6f8;
+    padding: 6px;
+    display: block;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+
+  /* === TEXT === */
+  .item-left .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .item-left .info h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0f2143;
+    margin: 0 0 6px;
+  }
+
+  .item-left .info p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+
+  /* === PRICE === */
+  .price {
+    font-weight: 700;
+    color: #0f2143;
+    font-size: 1rem;
+    white-space: nowrap;
+  }
+
+  /* === QUANTITY + REMOVE === */
+  .quantity {
+    width: 50px;
+    text-align: center;
+    border: 1px solid #dfe5ec;
+    border-radius: 4px;
+    padding: 6px 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .remove-link {
+    color: #0053a0;
+    font-size: 0.9rem;
+    text-decoration: none;
+    margin-top: 4px;
+  }
+  .remove-link:hover {
+    text-decoration: underline;
+  }
+
+  /* === CHECKOUT BUTTON === */
+  .checkout-btn {
+    display: block;
+    width: 100%;
+    background: #0f2143;
+    color: #fff;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    padding: 16px;
+    margin-top: 40px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.25s ease;
+  }
+
+  .checkout-btn:hover {
+    background: #6e8398;
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 768px) {
+    .review-wrap {
+      padding: 40px 25px;
+    }
+    .item-row {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .price {
+      margin-top: 10px;
+    }
+  }
+</style>
+</head>
+
+<body>
+  <div class="promo-bar">Discover the New You | Your True You</div>
+<!-- Topbar -->
+<header class="topbar">
+  <div class="brand">
+    <button class="nav-btn back" onclick="history.back()">←</button>
+    <img class="logo" src="https://blueridgemeds.com/wp-content/uploads/2024/08/KxBL8CTz1ZiDbTn8PeRg1JLSW4.avif" alt="BlueRidge Meds">
+  </div>
+  <div class="topbar-actions">
+    <button class="nav-btn phone" aria-label="Call">📞</button>
+    <button class="nav-btn help" aria-label="Get help">Help?</button>
+  </div>
+</header>
+
+<!-- Stepper (current step 3) -->
+  <div class="stepper-container">
+    <div class="stepper-inner">
+      <div class="brm-stepper" id="intakeStepper" data-count="5" data-step="3" aria-label="Intake progress">
+        <div class="brm-stepper__wrap" style="--count:5">
+          <div class="brm-stepper__track"></div>
+          <div class="brm-stepper__progress"></div>
+
+          <div class="brm-step" data-step="1"><div class="brm-step__dot">✓</div><div class="brm-step__label">Start</div></div>
+          <div class="brm-step" data-step="2"><div class="brm-step__dot">✓</div><div class="brm-step__label">Information</div></div>
+          <div class="brm-step brm-step--current" data-step="3"><div class="brm-step__dot">✓</div><div class="brm-step__label">Choose Your GLP-1 Plan</div></div>
+          <div class="brm-step" data-step="4"><div class="brm-step__dot">✓</div><div class="brm-step__label">Shipping</div></div>
+          <div class="brm-step" data-step="5"><div class="brm-step__dot">✓</div><div class="brm-step__label">Payment</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Review Section -->
+<main class="review-wrap">
+  <div class="review-header">
+    <h2>YOUR MEDICATION BAG</h2>
+    <h3>Review Your Items Before Proceeding</h3>
+  </div>
+
+  <div id="review-items"></div>
+
+  <button class="checkout-btn" onclick="goCheckout()">Checkout</button>
+</main>
+
+<script>
+// === Combine plan + boosters ===
+const reviewContainer = document.getElementById('review-items');
+
+// retrieve saved data
+const selectedPlan = JSON.parse(localStorage.getItem('selectedPlan')) || null;
+const boosters = JSON.parse(localStorage.getItem('selectedItems')) || [];
+
+// ensure plan always displayed once
+let allItems = [];
+if (selectedPlan) {
+  // if boosters already include plan, avoid duplication
+  const alreadyHasPlan = boosters.some(b => b.name === selectedPlan.name);
+  if (!alreadyHasPlan) allItems.push(selectedPlan);
+}
+if (boosters.length > 0) {
+  boosters.forEach(b => {
+    if (!allItems.some(i => i.name === b.name)) allItems.push(b);
+  });
+}
+
+// --- Render ---
+if (allItems.length === 0) {
+  reviewContainer.innerHTML = `
+    <p style="text-align:center; color:#415063; font-size:0.95rem;">
+      You haven’t selected a plan or booster. Please go back and choose your plan.
+    </p>`;
+} else {
+  // Plan section
+  if (selectedPlan) {
+    const planSection = document.createElement('div');
+    planSection.innerHTML = `<div class="section-title">Your Selected Plan</div>`;
+    reviewContainer.appendChild(planSection);
+
+    const planRow = document.createElement('div');
+    planRow.className = 'item-row';
+    planRow.innerHTML = `
+      <div class="item-left">
+        <img src="${selectedPlan.image}" alt="${selectedPlan.name}">
+        <div class="info">
+          <h4>${selectedPlan.name}</h4>
+        </div>
+      </div>
+      <div class="price">$${selectedPlan.price} / month</div>
+    `;
+    reviewContainer.appendChild(planRow);
+  }
+
+  // Booster section
+  const boosterItems = allItems.filter(i => !selectedPlan || i.name !== selectedPlan.name);
+  if (boosterItems.length > 0) {
+    const boosterSection = document.createElement('div');
+    boosterSection.innerHTML = `<div class="section-title">Your Boosters</div>`;
+    reviewContainer.appendChild(boosterSection);
+
+    boosterItems.forEach(item => {
+      const itemRow = document.createElement('div');
+      itemRow.className = 'item-row';
+      itemRow.innerHTML = `
+        <div class="item-left">
+          <img src="${item.image}" alt="${item.name}">
+          <div class="info">
+            <h4>${item.name}</h4>
+            <p><input class="quantity" type="number" value="1" min="1"></p>
+            <a href="#" class="remove-link" onclick="removeItem('${item.name}')">remove</a>
+          </div>
+        </div>
+        <div class="price">$${item.price} / month</div>
+      `;
+      reviewContainer.appendChild(itemRow);
+    });
+  }
+}
+
+// update storage with merged items
+localStorage.setItem('selectedItems', JSON.stringify(allItems));
+
+// remove item
+function removeItem(name) {
+  const updated = allItems.filter(i => i.name !== name);
+  localStorage.setItem('selectedItems', JSON.stringify(updated));
+  location.reload();
+}
+
+// checkout redirect
+function goCheckout() {
+  window.location.href = 'checkout.html';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Choose Your Booster – BlueRidge Meds</title>
+<link rel="stylesheet" href="styles.css" />
+<script defer src="stepper.js"></script>
+<style>
+  body {
+    background: #f8fafc;
+    color: #0f2143;
+    font-family: "Inter", sans-serif;
+    margin: 0;
+  }
+
+  .booster-wrap {
+    max-width: 1280px;
+    margin: 40px auto 80px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 60px 70px;
+    box-shadow: 0 4px 18px rgba(17,24,39,.05);
+  }
+
+  /* Header */
+  .booster-header {
+    margin-bottom: 50px;
+  }
+
+  .booster-header h2 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #2c3e66;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .booster-header h3 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #0f2143;
+    margin: 0 0 25px;
+  }
+
+  .booster-header h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0f2143;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .booster-header p {
+    color: #0f2143;
+    font-size: 0.94rem;
+    line-height: 1.7;
+    text-align: center;
+    max-width: 850px;
+    margin: 0 auto;
+  }
+
+  /* Grid */
+  /* Adjusted Grid & Card Balance */
+.product-grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 20px; /* tighter gap */
+  flex-wrap: nowrap;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1180px; /* centers and fits cards perfectly */
+}
+
+.product-card {
+  background: #fff;
+  border: 1px solid #e6ebf3;
+  border-radius: 12px;
+  padding: 36px 22px 40px; /* slightly reduced padding for visual balance */
+  text-align: center;
+  flex: 1;
+  transition: all 0.25s ease;
+  min-height: 670px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.product-card img {
+  width: 230px;
+  height: auto;
+  margin: 0 auto 18px; /* tighter space under image */
+  display: block;
+}
+
+.product-card .desc {
+  font-size: 0.85rem;
+  color: #415063;
+  line-height: 1.55;
+  text-align: left;
+  flex-grow: 1;
+  margin: 0 0 22px;
+}
+
+.btn-add {
+  display: block;
+  width: 100%;
+  background: #0f2143;
+  color: #fff;
+  font-weight: 700;
+  border: none;
+  border-radius: 999px;
+  padding: 13px 0;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  margin-top: auto; /* ensures button sticks to bottom evenly */
+}
+
+/* Optional: slightly reduce outer margins for better container fit */
+.booster-wrap {
+  max-width: 1250px;
+  padding: 60px 50px;
+  margin: 30px auto 70px;
+}
+
+
+  .product-card:hover {
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    transform: translateY(-2px);
+  }
+
+  .product-card img {
+    width: 180px;
+    height: auto;
+    margin: 0 auto 24px;
+    display: block;
+  }
+
+  .product-card h3 {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #0f2143;
+    margin-bottom: 6px;
+  }
+
+  .product-card .price {
+    font-weight: 700;
+    color: #0f2143;
+    margin-bottom: 10px;
+  }
+
+  .product-card .subtitle {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #8fa6b5;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    border-bottom: 1px solid #e6ebf3;
+    padding-bottom: 12px;
+  }
+
+  .product-card .desc {
+    font-size: 0.85rem;
+    color: #415063;
+    line-height: 1.55;
+    text-align: left;
+    flex-grow: 1; /* makes description fill available space evenly */
+    margin-bottom: 24px;
+  }
+
+  /* Buttons */
+  .btn-add {
+    display: block;
+    width: 100%;
+    background: #0f2143;
+    color: #fff;
+    font-weight: 700;
+    border: none;
+    border-radius: 999px;
+    padding: 14px 0;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+  }
+
+  .btn-add:hover {
+    background: #1d3557;
+  }
+
+  .btn-add.selected {
+    background: #0f2143;
+  }
+
+  .btn-add.selected::after {
+    content: " selected ✓";
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
+    margin-left: 4px;
+  }
+
+  /* Footer Buttons */
+  .bottom-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 60px;
+    flex-wrap: wrap;
+  }
+
+  .btn-outline {
+    border: 2px solid #8fa6b5;
+    color: #0f2143;
+    background: transparent;
+    padding: 14px 30px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .btn-outline:hover {
+    background: #eef4f8;
+  }
+
+  .btn-primary {
+    background: #0f2143;
+    color: #fff;
+    padding: 14px 30px;
+    border-radius: 10px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    background: #6e8398;
+  }
+
+  /* Centered Privacy Agreement */
+.privacy-agreement {
+  margin: 60px auto 50px;
+  text-align: center;
+  max-width: 700px;
+}
+
+.privacy-agreement h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f2143;
+  margin-bottom: 15px;
+}
+
+.checkbox-label {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: #415063;
+  line-height: 1.6;
+  text-align: left;
+  max-width: 650px;
+}
+
+.checkbox-label input[type="checkbox"] {
+  accent-color: #0f2143;
+  width: 18px;
+  height: 18px;
+  margin-top: 3px;
+  cursor: pointer;
+}
+
+.checkbox-label a {
+  color: #0053a0;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.checkbox-label a:hover {
+  text-decoration: underline;
+}
+
+
+  /* Responsive */
+  @media (max-width: 1200px) {
+    .product-card img {
+      width: 210px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .product-grid {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .product-card {
+      width: 45%;
+      min-height: 620px;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .product-card {
+      width: 100%;
+      min-height: auto;
+    }
+    .product-card img {
+      width: 200px;
+    }
+  }
+</style>
+</head>
+
+<body>
+  
+   <div class="promo-bar">Discover the New You | Your True You</div>
+
+<!-- Topbar -->
+<header class="topbar">
+  <div class="brand">
+    <button class="nav-btn back" onclick="history.back()">←</button>
+    <img class="logo" src="https://blueridgemeds.com/wp-content/uploads/2024/08/KxBL8CTz1ZiDbTn8PeRg1JLSW4.avif" alt="BlueRidge Meds">
+  </div>
+  <div class="topbar-actions">
+    <button class="nav-btn phone" aria-label="Call">📞</button>
+    <button class="nav-btn help" aria-label="Get help">Help?</button>
+  </div>
+</header>
+
+<!-- Stepper -->
+  <div class="stepper-container">
+    <div class="stepper-inner">
+      <div class="brm-stepper" id="intakeStepper" data-count="5" data-step="3" aria-label="Intake progress">
+        <div class="brm-stepper__wrap" style="--count:5">
+          <div class="brm-stepper__track"></div>
+          <div class="brm-stepper__progress"></div>
+          <div class="brm-step" data-step="1"><div class="brm-step__dot">✓</div><div class="brm-step__label">Start</div></div>
+          <div class="brm-step" data-step="2"><div class="brm-step__dot">✓</div><div class="brm-step__label">Information</div></div>
+          <div class="brm-step brm-step--current" data-step="3"><div class="brm-step__dot">✓</div><div class="brm-step__label">Choose Your GLP-1 Plan</div></div>
+          <div class="brm-step" data-step="4"><div class="brm-step__dot">✓</div><div class="brm-step__label">Shipping</div></div>
+          <div class="brm-step" data-step="5"><div class="brm-step__dot">✓</div><div class="brm-step__label">Payment</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Main Section -->
+<main class="booster-wrap">
+  <div class="booster-header">
+    <h2>CHOOSE YOUR BOOSTER</h2>
+    <h3>Monthly</h3>
+    <h4>Enhance your journey to better health and weight loss with our premium booster supplements!</h4>
+    <p>Designed to complement your GLP-1 treatment, these products—MIC, B12, Sermorelin, and Glutathione—offer benefits like improved metabolism, increased energy, better sleep, and enhanced overall wellbeing. Would you like to add any of these to your cart for even greater results?</p>
+  </div>
+
+  <div class="product-grid">
+    <!-- B12 -->
+    <div class="product-card">
+      <img src="https://scontent.fmnl4-4.fna.fbcdn.net/v/t1.15752-9/566631679_691492340219262_1210712537124751901_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeHoJKHImoVuIOfAiQIVTsYVfrO9hQkcMdl-s72FCRwx2YIuTlTxexv2x4y9POLf3deuF0T4ckzMa_IhB8mcrZGS&_nc_ohc=2nYsZ0mwHG0Q7kNvwEwfjOH&_nc_oc=AdktSblFQmNK1H5IwqUMgq7wU1nGsiVi90omMdKnZgy_23y4TZRDlCZ54wBExiWJQRQ&_nc_zt=23&_nc_ht=scontent.fmnl4-4.fna&oh=03_Q7cD3gGLB476PebmaeuN_pFlmUpfFetB753XTLB9hbyqVzqyEg&oe=6926E115" alt="B12">
+      <h3>B12</h3>
+      <p class="price">$129/month</p>
+      <p class="subtitle">BOOST ENERGY AND METABOLISM</p>
+      <p class="desc">Vitamin B12 is crucial for red blood cell formation, nerve function, and converting food into fuel. By supporting these processes, B12 helps maintain steady energy levels and overall vitality.</p>
+      <button class="btn-add" onclick="toggleSelect(this)">Add to Cart</button>
+    </div>
+
+    <!-- MIC -->
+    <div class="product-card">
+      <img src="https://scontent.fmnl4-3.fna.fbcdn.net/v/t1.15752-9/566512623_811389484811290_7148086018998494997_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeEStYHfg0YAS7yKCMtE9acTUP1QHmZyFF5Q_VAeZnIUXgyK0LsvrxNVHeefY880aO2Xn7G62EzNMeKIqEIygvB0&_nc_ohc=mjTKWaXhFqIQ7kNvwHDdCTh&_nc_oc=AdlQHUHXpGWS8mZQxm4dgnDJA0LlSOptWFvZdqct1dTdhXAjGY0RmIdpyBkL9Msuf2Q&_nc_zt=23&_nc_ht=scontent.fmnl4-3.fna&oh=03_Q7cD3gGsuJuFMUMY5O6gjUOClNH2BjfydhcXohtp-RG3bNcC4g&oe=6926F2D5" alt="MIC">
+      <h3>MIC</h3>
+      <p class="price">$60/month</p>
+      <p class="subtitle">SUPPORT FAT METABOLISM AND LIVER HEALTH</p>
+      <p class="desc">MIC combines Methionine, Inositol, and Choline—nutrients that aid in breaking down fats while promoting a healthy liver. This blend optimizes your body’s ability to process and use energy effectively.</p>
+      <button class="btn-add" onclick="toggleSelect(this)">Add to Cart</button>
+    </div>
+
+    <!-- Sermorelin -->
+    <div class="product-card">
+      <img src="https://scontent.fmnl4-3.fna.fbcdn.net/v/t1.15752-9/566520647_834571158972330_1405594641567012712_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeFYE1YtNg67j_haJ2ELEYXXD-HIXqSiQ7cP4chepKJDt6uJjDwUqAe7anmPhdk3R2MJ0_a3e7h6ODNp1iwRfcWB&_nc_ohc=Uym5UD69GjwQ7kNvwH7ZPAF&_nc_oc=AdlEA2-xE7KEHVw--xGeBx35VMuh6Nwu2xJ2RUXRmIMI7km3Cac4o03KJj9j1QI_u34&_nc_zt=23&_nc_ht=scontent.fmnl4-3.fna&oh=03_Q7cD3gGuLfghSDJ287Zv6fn2L2s4sDTh3znjp2Mt6PpnJlRskQ&oe=6926F02F" alt="Sermorelin">
+      <h3>Sermorelin</h3>
+      <p class="price">$249/month</p>
+      <p class="subtitle">ENHANCE RECOVERY AND PROMOTE HEALTHY AGING</p>
+      <p class="desc">Sermorelin is a peptide that stimulates your natural production of growth hormone. By supporting hormone balance, it helps improve muscle tone, metabolism, and overall well-being.</p>
+      <button class="btn-add" onclick="toggleSelect(this)">Add to Cart</button>
+    </div>
+
+    <!-- Glutathione -->
+    <div class="product-card">
+      <img src="https://scontent.fmnl4-8.fna.fbcdn.net/v/t1.15752-9/566541505_2076709129403583_4206029323017197132_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeF_wXo8uVNziReH3Ar_wA9Q21TGmBhTo3HbVMaYGFOjcX4EdRvIiqBVBv_bl3X6_LdVK_6VIplf372GUR68vL-D&_nc_ohc=v2deYONYe4EQ7kNvwEbzNfa&_nc_oc=Adn3_PYyVKHd8a3TBAIidk_t22PUTi9Dhisg0Y1icFgiw-GhuTif43r2lGq5OJDJE0o&_nc_zt=23&_nc_ht=scontent.fmnl4-8.fna&oh=03_Q7cD3gFtj7RbyfnyF-TYlmwXEFrurf1evwaFTepbTPhEm3pSyw&oe=6926F696" alt="Glutathione">
+      <h3>Glutathione</h3>
+      <p class="price">$179/month</p>
+      <p class="subtitle">BOOST IMMUNITY AND DEFEND AGAINST CELL DAMAGE</p>
+      <p class="desc">Glutathione is a powerful antioxidant that supports detoxification and helps protect cells from oxidative stress. Maintaining optimal levels can strengthen the immune system and enhance overall health.</p>
+      <button class="btn-add" onclick="toggleSelect(this)">Add to Cart</button>
+    </div>
+  </div>
+
+    </div> <!-- end of product-grid -->
+
+  <!-- Privacy Agreement (no container) -->
+<div class="privacy-agreement">
+  <h4>By subscribing, you are agreeing to our <strong>Privacy Policy</strong></h4>
+  <label class="checkbox-label">
+    <input type="checkbox" required />
+    <span>
+      Please check this box to indicate that you agree to the 
+      <a href="#" target="_blank">Terms and Conditions Patient Agreement</a> 
+      and 
+      <a href="#" target="_blank">Telehealth Consent</a>.
+    </span>
+  </label>
+</div>
+
+
+  <div class="bottom-actions">
+      <button class="btn-outline" onclick="goToReview(false)">No Thanks - Proceed to Checkout</button>
+  <button class="btn-primary" onclick="goToReview(true)">Continue</button>
+
+<script>
+function toggleSelect(button) {
+  if (button.classList.contains("selected")) {
+    button.classList.remove("selected");
+    button.textContent = "Add to Cart";
+  } else {
+    button.classList.add("selected");
+    button.textContent = "Remove";
+  }
+}
+
+// ✅ This version preserves your selected plan from previous step
+function goToReview(hasBoosters) {
+  // get selected boosters
+  const selectedBoosters = [];
+  document.querySelectorAll('.btn-add.selected').forEach(btn => {
+    const card = btn.closest('.product-card');
+    selectedBoosters.push({
+      name: card.querySelector('h3').innerText,
+      price: card.querySelector('.price').innerText.replace('/month','').replace('$','').trim(),
+      image: card.querySelector('img').src
+    });
+  });
+
+  // get main plan (saved on choose plan step)
+  const selectedPlan = JSON.parse(localStorage.getItem('selectedPlan')) || null;
+
+  // ✅ merge plan + boosters
+  let combinedItems = [];
+  if (selectedPlan) combinedItems.push(selectedPlan);
+  if (selectedBoosters.length > 0) combinedItems = combinedItems.concat(selectedBoosters);
+
+  // ✅ save final combined list
+  localStorage.setItem('selectedItems', JSON.stringify(combinedItems));
+
+  // ✅ confirm for debugging
+  console.log("Items saved to review:", combinedItems);
+
+  // redirect
+  window.location.href = 'review-items.html';
+}
+</script>
+</body>
+</html>

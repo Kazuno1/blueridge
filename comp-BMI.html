@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Calculate BMI – BlueRidge Meds</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Minimal page-local styles to match the reference layout */
+    .bmi-container { max-width:700px; margin:36px auto; background:#fff; border:1px solid var(--line); border-radius:12px; padding:32px; }
+    .bmi-row { display:flex; gap:12px; }
+    .bmi-row .half { flex:1; } /* apply that and button effect here too */
+
+    .input-lg { width:100%; padding:12px 14px; height:44px; font-size:1rem; border-radius:12px; border:1px solid var(--line); }
+    .label { display:block; font-size:0.95rem; color:var(--label); margin-bottom:8px; }
+    .muted { color:var(--label); font-size:0.95rem; margin-bottom:8px; }
+
+    /* Upgraded Continue button (same feel as prelim-next) */
+    .continue-btn{
+      display:block; width:100%;
+      border:0; border-radius:10px;
+      background:#0f2143; color:#fff;
+      padding:14px 16px; font-weight:700; font-size:1rem;
+      cursor:pointer;
+      transition: background-color .25s ease, box-shadow .25s ease, transform .15s ease;
+      will-change: transform, box-shadow, background-color;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    .continue-btn:hover{ background-color:#8095bb; transform:translateY(-2px); box-shadow:0 4px 10px rgba(93,125,160,.25); }
+    .continue-btn:active{ background-color:#0f2143; transform:translateY(1px); box-shadow:0 2px 6px rgba(0,123,255,.2); }
+    .continue-btn:focus{ outline:none; }
+    .continue-btn:focus-visible{ box-shadow:0 0 0 3px rgba(82,105,129,.35); }
+    .continue-btn:disabled{ opacity:.6; cursor:not-allowed; transform:none; box-shadow:none; }
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .continue-btn{ transition:none; }
+      .continue-btn:hover, .continue-btn:active{ transform:none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="promo-bar">Discover the New You | Your True You</div>
+
+  <header class="topbar">
+    <div class="brand">
+      <button class="nav-btn back" id="backBtn" aria-label="Go back">←</button>
+      <img src="https://blueridgemeds.com/wp-content/uploads/2024/08/KxBL8CTz1ZiDbTn8PeRg1JLSW4.avif" alt="Blue Ridge Meds Logo" class="logo" />
+    </div>
+
+    <div class="topbar-actions">
+      <button class="nav-btn phone" aria-label="Call">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+          <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.24.2 2.45.57 3.57.14.42.02.88-.24 1.2l-2.21 2.02z" />
+        </svg>
+      </button>
+      <button class="nav-btn help" aria-label="Get help">Help?</button>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- STEP PROGRESS BAR (copied from preliminary) -->
+    <div class="stepper-container">
+      <div class="stepper-inner">
+        <div class="brm-stepper" id="intakeStepper" data-count="5" data-step="2" aria-label="Intake progress" role="group">
+          <div class="brm-stepper__wrap" style="--count:5">
+            <div class="brm-stepper__track" aria-hidden="true"></div>
+            <div class="brm-stepper__progress" aria-hidden="true"></div>
+
+            <div class="brm-step brm-step--current" data-step="1">
+              <div class="brm-step__dot" aria-hidden="true">✓</div>
+              <div class="brm-step__label">Start</div>
+            </div>
+            <div class="brm-step" data-step="2">
+              <div class="brm-step__dot" aria-hidden="true">✓</div>
+              <div class="brm-step__label">Information</div>
+            </div>
+            <div class="brm-step" data-step="3">
+              <div class="brm-step__dot" aria-hidden="true">✓</div>
+              <div class="brm-step__label">Choose Your GLP-1 Plan</div>
+            </div>
+            <div class="brm-step" data-step="4">
+              <div class="brm-step__dot" aria-hidden="true">✓</div>
+              <div class="brm-step__label">Shipping</div>
+            </div>
+            <div class="brm-step" data-step="5">
+              <div class="brm-step__dot" aria-hidden="true">✓</div>
+              <div class="brm-step__label">Payment</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:18px;">
+      <div class="bmi-container">
+      <h2 style="text-align:center; margin-top:0;">We will now calculate your BMI</h2>
+      <p class="muted" style="text-align:center; margin-top:6px;">Enter the following information</p>
+
+      <form id="bmiForm" style="margin-top:18px; display:flex; flex-direction:column; gap:16px;">
+        <div>
+          <label class="label">Height</label>
+          <div class="bmi-row">
+            <div class="half">
+              <input type="number" id="feet" name="feet" min="0" placeholder="Feet" class="input-lg" required aria-describedby="err-height" />
+            </div>
+            <div class="half">
+              <input type="number" id="inches" name="inches" min="0" max="11" placeholder="Inches" class="input-lg" required aria-describedby="err-height" />
+            </div>
+          </div>
+          <div id="err-height" class="field-error" aria-live="polite" style="color:#b00020; font-size:0.9rem; margin-top:6px; display:none;">Please enter your height.</div>
+        </div>
+
+        <div>
+          <label class="label">Weight</label>
+          <input type="number" id="weight" name="weight" min="0" step="any" placeholder="lbs" class="input-lg" required aria-describedby="err-weight" />
+          <div id="err-weight" class="field-error" aria-live="polite" style="color:#b00020; font-size:0.9rem; margin-top:6px; display:none;">Please enter your weight.</div>
+        </div>
+
+        <div>
+          <label class="label">BMI</label>
+          <input type="text" id="bmiOutput" name="bmi" readonly class="input-lg" placeholder="" />
+        </div>
+
+        <div>
+          <button id="bmiContinue" type="submit" class="continue-btn" disabled>Continue</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script src="stepper.js"></script>
+  <script>
+    // Back button behavior
+    document.getElementById('backBtn')?.addEventListener('click', function () {
+      if (window.history && history.length > 1) return history.back();
+      window.location.href = 'prelim-next.html';
+    });
+
+    // BMI calculation + validation (with native bubbles + custom logic)
+    (function (){
+      var feetEl = document.getElementById('feet');
+      var inchesEl = document.getElementById('inches');
+      var weightEl = document.getElementById('weight');
+      var bmiOut = document.getElementById('bmiOutput');
+      var continueBtn = document.getElementById('bmiContinue');
+      var errHeight = document.getElementById('err-height');
+      var errWeight = document.getElementById('err-weight');
+      var form = document.getElementById('bmiForm');
+
+      function computeBMI() {
+        var f = parseFloat(feetEl.value) || 0;
+        var i = parseFloat(inchesEl.value) || 0;
+        var lbs = parseFloat(weightEl.value) || 0;
+
+        var totalInches = (f * 12) + i;
+        if (totalInches <= 0 || lbs <= 0) {
+          bmiOut.value = '';
+          return;
+        }
+
+        var meters = totalInches * 0.0254; // inches to meters
+        var kg = lbs * 0.45359237;
+        var bmi = kg / (meters * meters);
+        bmiOut.value = bmi ? bmi.toFixed(1) : '';
+      }
+
+      function setHeightCustomValidity(totalInches) {
+        // Use native bubble but ensure the combined height > 0
+        if (totalInches <= 0) {
+          var msg = "Please enter a valid height (feet and inches).";
+          feetEl.setCustomValidity(msg);
+          inchesEl.setCustomValidity(msg);
+        } else {
+          feetEl.setCustomValidity("");
+          inchesEl.setCustomValidity("");
+        }
+      }
+
+      function validateForm() {
+        var f = parseFloat(feetEl.value) || 0;
+        var i = parseFloat(inchesEl.value) || 0;
+        var lbs = parseFloat(weightEl.value) || 0;
+        var totalInches = (f * 12) + i;
+
+        setHeightCustomValidity(totalInches);
+
+        var validHeight = totalInches > 0;
+        var validWeight = lbs > 0;
+
+        // show/hide your inline helper text (optional – you can remove these if you only want bubbles)
+        errHeight.style.display = validHeight ? 'none' : 'block';
+        errWeight.style.display = validWeight ? 'none' : 'block';
+
+        var allValid = validHeight && validWeight;
+        if (continueBtn) continueBtn.disabled = !allValid;
+
+        return allValid;
+      }
+
+      [feetEl, inchesEl, weightEl].forEach(function(el){
+        if (!el) return;
+        el.addEventListener('input', function(){
+          computeBMI();
+          validateForm();
+          // while typing, clear weight custom validity if any
+          weightEl.setCustomValidity("");
+        });
+        el.addEventListener('blur', validateForm);
+      });
+
+      // initial validation pass
+      computeBMI();
+      validateForm();
+
+      // form submit: use native bubbles + our combined-height rule
+      form?.addEventListener('submit', function(e){
+        // Sync custom checks, then ask browser to validate with bubbles
+        var ok = validateForm();
+
+        // If browser-native rules fail (e.g., required), show bubble
+        if (!form.checkValidity()) {
+          e.preventDefault();
+          form.reportValidity();
+          return;
+        }
+
+        // If our combined height/weight rule fails, show bubble
+        if (!ok) {
+          e.preventDefault();
+          // trigger bubble on the first offending input
+          if ((parseFloat(feetEl.value) || 0) + (parseFloat(inchesEl.value) || 0) <= 0) {
+            feetEl.reportValidity();
+          } else if ((parseFloat(weightEl.value) || 0) <= 0) {
+            // give weight a message for the bubble
+            weightEl.setCustomValidity("Please enter your weight.");
+            weightEl.reportValidity();
+            weightEl.setCustomValidity("");
+          }
+          return;
+        }
+
+        e.preventDefault();
+        // success — proceed to next step
+        window.location.href = 'glp-medication.html';
+      });
+    })();
+  </script>
+
+</body>
+</html>

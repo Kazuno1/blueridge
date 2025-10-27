@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Semaglutide – Plan Details</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="stepper.js"></script>
+  <style>
+    .product-wrap{max-width:940px;margin:28px auto 56px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:28px 28px 36px;box-shadow:0 4px 12px rgba(17,24,39,.05)}
+    .prod-title{margin:0 0 6px;font-size:1.6rem;font-weight:800;color:#0f2143}
+    .prod-lead{margin:0 0 16px;color:#415063;line-height:1.55}
+    .prod-card{display:grid;grid-template-columns:200px 1fr;gap:24px;align-items:center;background:#f7f9fc;border:1px solid #e6ebf3;border-radius:12px;padding:22px;margin:20px 0 24px}
+    .prod-img{display:flex;align-items:center;justify-content:center}
+    .prod-img img{width:100%;max-width:50px;height:auto;display:block}
+    .prod-name{font-weight:800;color:#0f2143;margin-bottom:6px}
+    .price-row{display:flex;align-items:center;gap:12px;margin-top:10px}
+    .pill{background:#ecf1f6;border-radius:999px;padding:10px 16px;font-weight:600;color:#2a3f57}
+    .amount{margin-left:auto;font-weight:800;color:#0f2143}
+    .cta{display:block;width:100%;border:0;border-radius:10px;background:#0f2143;color:#fff;padding:14px 16px;font-weight:700;transition:background .2s ease,transform .15s ease,box-shadow .25s ease}
+    .cta:hover{background:#6e8398;transform:translateY(-2px);box-shadow:0 8px 22px rgba(11,29,58,.12)}
+    .or-line{display:flex;align-items:center;gap:14px;color:#9aa6b5;font-weight:600;margin:18px 0}
+    .or-line::before,.or-line::after{content:"";height:1px;background:#e6ebf3;flex:1}
+    .link{color:#1d3b6a;font-weight:700;text-decoration:underline}
+    @media(max-width:720px){.prod-card{grid-template-columns:1fr;text-align:center}.prod-img img{max-width:160px;margin:0 auto 12px}}
+  </style>
+</head>
+<body>
+  <div class="promo-bar">Discover the New You | Your True You</div>
+  <header class="topbar">
+    <div class="brand" style="left:18%">
+      <button class="nav-btn back" onclick="history.back()">←</button>
+      <img class="logo" src="https://blueridgemeds.com/wp-content/uploads/2024/08/KxBL8CTz1ZiDbTn8PeRg1JLSW4.avif" alt="BlueRidge Meds">
+    </div>
+    <div class="topbar-actions">
+      <button class="nav-btn phone" aria-label="Call">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="#fff"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.56.57 1 1 0 011 1v3.61a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.61a1 1 0 011 1c0 1.22.2 2.42.57 3.56a1 1 0 01-.24 1.01l-2.32 2.22z"/></svg>
+      </button>
+      <button class="nav-btn help">Help</button>
+    </div>
+  </header>
+
+  <div class="stepper-container"><div class="stepper-inner"><div class="brm-stepper" id="intakeStepper" data-count="5" data-step="3"><div class="brm-stepper__wrap"><div class="brm-stepper__track"></div><div class="brm-stepper__progress"></div><div class="brm-step" data-step="1"><div class="brm-step__dot">✓</div><div class="brm-step__label">Start</div></div><div class="brm-step" data-step="2"><div class="brm-step__dot">✓</div><div class="brm-step__label">Information</div></div><div class="brm-step brm-step--current" data-step="3"><div class="brm-step__dot">✓</div><div class="brm-step__label">Choose Your GLP-1 Plan</div></div><div class="brm-step" data-step="4"><div class="brm-step__dot">✓</div><div class="brm-step__label">Shipping</div></div><div class="brm-step" data-step="5"><div class="brm-step__dot">✓</div><div class="brm-step__label">Payment</div></div></div></div></div></div>
+
+  <main class="container">
+    <section class="product-wrap">
+      <h2 class="prod-title">Congratulations!</h2>
+      <p class="prod-lead">
+        Based on your responses, it is likely that a medical professional will recommend a <strong>Semaglutide Program</strong>.
+        Click “Learn more” to explore the commonly prescribed dosing schedule.
+        <strong>If you would like to choose a different treatment option, please select “Modify your plan” below.</strong>
+      </p>
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <img src="https://blueridgemeds.wpenginepowered.com/wp-content/uploads/2024/09/BlueRidge-Semaglutide-1-bottle-1-1.png" alt="Semaglutide vial">
+        </div>
+        <div>
+          <div class="prod-name">Semaglutide</div>
+          <div>1 × Vial with Injection Supply Kit</div>
+          <div class="price-row">
+            <div class="pill">Learn More</div>
+            <div class="amount">$297.00</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="cta" onclick="goNext()">Continue</button>
+      <div class="or-line">Or</div>
+<p style="text-align:center">
+  <a class="link" href="choose-plan.html">Modify your plan</a>
+</p>
+
+    </section>
+  </main>
+
+  <script>
+    function goNext(){ if(window.setIntakeStep) window.setIntakeStep(4); window.location.href='choose-booster.html'; }
+  </script>
+</body>
+</html>

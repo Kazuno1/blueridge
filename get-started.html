@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Get Started - Blue Ridge Meds</title>
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Button effects (reapply) -->
+<style>
+  /* Continue / primary button */
+  .btn.btn--primary{
+    background-color:#0f2143 !important; /* keep your brand navy */
+    color:#fff;
+    border:none;
+    border-radius:10px;           /* matches your other pages */
+    padding:14px 18px;
+    width:100%;
+    font-size:1rem;
+    font-weight:700;
+    cursor:pointer;
+    transition:
+      background-color .25s ease,
+      box-shadow .25s ease,
+      transform .15s ease;
+    will-change: transform, box-shadow, background-color;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  /* Hover – lighter + lift */
+  .btn.btn--primary:hover{
+    background-color:#8095bb !important; /* lighter on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(93,125,160,.25);
+  }
+
+  /* Active – pressed */
+  .btn.btn--primary:active{
+    background-color:#0f2143 !important; /* snap back to base tone */
+    transform: translateY(1px);
+    box-shadow: 0 2px 6px rgba(0,123,255,.2);
+  }
+
+  /* Focus ring (keyboard) */
+  .btn.btn--primary:focus{ outline:none; }
+  .btn.btn--primary:focus-visible{
+    box-shadow: 0 0 0 3px rgba(82,105,129,.35);
+  }
+
+  /* Disabled */
+  .btn.btn--primary:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+    transform:none;
+    box-shadow:none;
+  }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    .btn.btn--primary{ transition:none; }
+    .btn.btn--primary:hover,
+    .btn.btn--primary:active{ transform:none; }
+  }
+</style>
+
+</head>
+<body>
+  <div class="promo-bar">Discover the New You | Your True You</div>
+  <header class="topbar">
+    <div class="brand">
+      <button class="nav-btn back" id="backBtn" aria-label="Go back">←</button>
+      <img
+        src="https://blueridgemeds.com/wp-content/uploads/2024/08/KxBL8CTz1ZiDbTn8PeRg1JLSW4.avif"
+        alt="Blue Ridge Meds Logo"
+        class="logo"
+      />
+    </div>
+
+    <div class="topbar-actions">
+      <button class="nav-btn phone" aria-label="Call">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+          <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.24.2 2.45.57 3.57.14.42.02.88-.24 1.2l-2.21 2.02z" />
+        </svg>
+      </button>
+      <button class="nav-btn help" aria-label="Get help">Help?</button>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- STEP PROGRESS BAR -->
+    <div class="stepper-container" aria-hidden="false">
+      <div class="stepper-inner">
+        <div class="brm-stepper" id="intakeStepper" data-count="5" data-step="1" aria-label="Intake progress" role="group">
+          <div class="brm-stepper__wrap" style="--count:5">
+            <div class="brm-stepper__track" aria-hidden="true"></div>   
+            <div class="brm-stepper__progress" aria-hidden="true"></div>
+
+            <div class="brm-step brm-step--current" data-step="1">
+              <div class="brm-step__dot" aria-hidden="true">✓</div>
+              <div class="brm-step__label">Start</div>
+            </div>
+            <div class="brm-step" data-step="2">
+              <div class="brm-step__dot" aria-hidden="true">✓</div>
+              <div class="brm-step__label">Information</div>
+            </div>
+            <div class="brm-step" data-step="3">
+              <div class="brm-step__dot" aria-hidden="true">✓</div>
+              <div class="brm-step__label">Choose Your GLP-1 Plan</div>
+            </div>
+            <div class="brm-step" data-step="4">
+              <div class="brm-step__dot" aria-hidden="true">✓</div>
+              <div class="brm-step__label">Shipping</div>
+            </div>
+            <div class="brm-step" data-step="5">
+              <div class="brm-step__dot" aria-hidden="true">✓</div>
+              <div class="brm-step__label">Payment</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GOAL QUESTION CARD -->
+    <section class="quiz-card" id="goalStep" aria-labelledby="goalTitle">
+      <p class="eyebrow">YOU DID IT</p>
+      <h2 id="goalTitle">What is your primary goal for weight loss?</h2>
+      <p class="sub">Select one or more outcomes:</p>
+
+      <form id="goalForm">
+        <label class="choice">
+          <input type="checkbox" name="goals" value="overall" />
+          <span class="choice__box" aria-hidden="true"></span>
+          <span class="choice__label">Overall health improvement</span>
+        </label>
+
+        <label class="choice">
+          <input type="checkbox" name="goals" value="target" />
+          <span class="choice__box" aria-hidden="true"></span>
+          <span class="choice__label">Specific weight loss target</span>
+        </label>
+
+        <label class="choice">
+          <input type="checkbox" name="goals" value="energy" />
+          <span class="choice__box" aria-hidden="true"></span>
+          <span class="choice__label">Increased Energy</span>
+        </label>
+
+        <label class="choice">
+          <input type="checkbox" name="goals" value="composition" />
+          <span class="choice__box" aria-hidden="true"></span>
+          <span class="choice__label">Improved body composition</span>
+        </label>
+
+        <button type="submit" class="btn btn--primary" id="goalSubmit" disabled>
+          Continue
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <script>
+document.addEventListener('DOMContentLoaded', function () {
+  const form = document.getElementById('goalForm');
+  const submitBtn = document.getElementById('goalSubmit');
+  if (!form || !submitBtn) return;
+
+  // Watch both names so it works no matter which you used
+  const inputs = form.querySelectorAll(
+    'input[type="checkbox"][name="goals"], input[type="checkbox"][name="goal"]'
+  );
+
+  function anyChecked() {
+    return Array.from(inputs).some(cb => cb.checked);
+  }
+
+  function updateButtonState() {
+    const enable = anyChecked();
+    submitBtn.disabled = !enable;
+    // also remove attribute for CSS that targets :disabled
+    if (enable) submitBtn.removeAttribute('disabled');
+    else submitBtn.setAttribute('disabled', 'disabled');
+  }
+
+  // Initialize + wire up listeners
+  inputs.forEach(cb => cb.addEventListener('change', updateButtonState));
+  updateButtonState();
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!anyChecked()) return;
+
+    // Save selections (supports both names)
+    const selected = Array.from(inputs)
+      .filter(cb => cb.checked)
+      .map(cb => cb.value);
+    localStorage.setItem('goals', JSON.stringify(selected));
+
+    if (window.setIntakeStep) window.setIntakeStep(2);
+    window.location.href = 'prelim-next.html';
+  });
+});
+</script>
+</body>
+</html>

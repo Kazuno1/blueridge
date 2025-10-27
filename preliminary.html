@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Preliminary – BlueRidge Meds</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Upgraded Continue button (same look/feel as the other pages) */
+    .btn.btn--primary{
+      background-color:#0f2143 !important; /* override inline background */
+      color:#fff;
+      border:none;
+      border-radius:10px;
+      padding:12px 18px;
+      width:100%;
+      font-size:1rem;
+      font-weight:700;
+      cursor:pointer;
+      transition:background-color .25s ease, box-shadow .25s ease, transform .15s ease;
+      will-change:transform, box-shadow, background-color;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    .btn.btn--primary:hover{
+      background-color:#8095bb !important;
+      transform:translateY(-2px);
+      box-shadow:0 4px 10px rgba(93,125,160,.25);
+    }
+    .btn.btn--primary:active{
+      background-color:#0f2143 !important;
+      transform:translateY(1px);
+      box-shadow:0 2px 6px rgba(0,123,255,.2);
+    }
+    .btn.btn--primary:focus{ outline:none; }
+    .btn.btn--primary:focus-visible{
+      box-shadow:0 0 0 3px rgba(82,105,129,.35);
+    }
+    .btn.btn--primary:disabled{
+      opacity:.6;
+      cursor:not-allowed;
+      transform:none;
+      box-shadow:none;
+    }
+
+    /* Tiny helper for the preference row */
+    .pref-row{display:flex;gap:12px;align-items:center;margin-bottom:14px;}
+    .pref-row label{display:flex;align-items:center;gap:8px;font-size:.95rem;color:var(--label);font-weight:600;}
+  </style>
+</head>
+<body>
+
+  <div class="promo-bar">Discover the New You | Your True You</div>
+
+  <header class="topbar">
+    <div class="brand">
+      <button class="nav-btn back" id="backBtn" aria-label="Go back">←</button>
+      <img
+        src="https://blueridgemeds.com/wp-content/uploads/2024/08/KxBL8CTz1ZiDbTn8PeRg1JLSW4.avif"
+        alt="Blue Ridge Meds Logo"
+        class="logo"
+      />
+    </div>
+
+    <div class="topbar-actions">
+      <button class="nav-btn phone" aria-label="Call">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+          <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.24.2 2.45.57 3.57.14.42.02.88-.24 1.2l-2.21 2.02z" />
+        </svg>
+      </button>
+      <button class="nav-btn help" aria-label="Get help">Help?</button>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- STEP PROGRESS BAR (step 2 visible) -->
+    <div class="stepper-container">
+      <div class="stepper-inner">
+        <div class="brm-stepper" id="intakeStepper" data-count="5" data-step="2" aria-label="Intake progress" role="group">
+          <div class="brm-stepper__wrap" style="--count:5">
+            <div class="brm-stepper__track" aria-hidden="true"></div>
+            <div class="brm-stepper__progress" aria-hidden="true"></div>
+
+            <div class="brm-step brm-step--current" data-step="1">
+              <div class="brm-step__dot" aria-hidden="true">✓</div>
+              <div class="brm-step__label">Start</div>
+            </div>
+            <div class="brm-step" data-step="2">
+              <div class="brm-step__dot" aria-hidden="true">✓</div>
+              <div class="brm-step__label">Information</div>
+            </div>
+            <div class="brm-step" data-step="3">
+              <div class="brm-step__dot" aria-hidden="true">✓</div>
+              <div class="brm-step__label">Choose Your GLP-1 Plan</div>
+            </div>
+            <div class="brm-step" data-step="4">
+              <div class="brm-step__dot" aria-hidden="true">✓</div>
+              <div class="brm-step__label">Shipping</div>
+            </div>
+            <div class="brm-step" data-step="5">
+              <div class="brm-step__dot" aria-hidden="true">✓</div>
+              <div class="brm-step__label">Payment</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Two-column preliminary layout (left: benefits, right: form) -->
+    <div style="display:grid; grid-template-columns: 1fr 1.2fr; gap:28px; align-items:start; margin-top:18px;">
+
+      <!-- Left benefits column -->
+      <aside style="background:#fff; border:1px solid var(--line); border-radius:12px; padding:24px;">
+        <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:18px;">
+          <li style="display:flex; gap:14px; align-items:flex-start;">
+            <div style="width:44px; height:44px; border-radius:8px; background:#f1f5f9; display:grid; place-items:center;">
+              <img class="benefit-icon" src="https://blueridgemeds.wpenginepowered.com/wp-content/uploads/2024/09/no-string.png" alt="No strings attached" />
+            </div>
+            <div>
+              <strong>No Strings attached</strong>
+              <div style="color:var(--label); font-size:0.95rem; margin-top:6px;">Pause or cancel at any time.</div>
+            </div>
+          </li>
+
+          <li style="display:flex; gap:14px; align-items:flex-start;">
+            <div style="width:44px; height:44px; border-radius:8px; background:#f1f5f9; display:grid; place-items:center;">
+              <img class="benefit-icon" src="https://blueridgemeds.wpenginepowered.com/wp-content/uploads/2024/09/shipping.png" alt="Free shipping" />
+            </div>
+            <div>
+              <strong>Free shipping</strong>
+              <div style="color:var(--label); font-size:0.95rem; margin-top:6px;">Delivered right to your door.</div>
+            </div>
+          </li>
+
+          <li style="display:flex; gap:14px; align-items:flex-start;">
+            <div style="width:44px; height:44px; border-radius:8px; background:#f1f5f9; display:grid; place-items:center;">
+              <img class="benefit-icon" src="https://blueridgemeds.wpenginepowered.com/wp-content/uploads/2024/09/free-medical.png" alt="Free medical evaluation" />
+            </div>
+            <div>
+              <strong>Free medical evaluation</strong>
+              <div style="color:var(--label); font-size:0.95rem; margin-top:6px;">Medical evaluation and prescriptions by board certified physician.</div>
+            </div>
+          </li>
+        </ul>
+      </aside>
+
+      <!-- Right form column -->
+      <section style="background:#fff; border:1px solid var(--line); border-radius:12px; padding:26px;">
+        <h2 style="margin-top:0;">Continue with your weight loss visit.</h2>
+        <p style="color:var(--label);">Next, you'll provide some basic information about yourself, your lifestyle, and your medical history. Your doctor will use this information to evaluate your health status and, if appropriate, prescribe for treatment.</p>
+
+        <form id="prelimForm" style="margin-top:18px;">
+          <label style="display:block; text-align:left; margin-bottom:10px; font-weight:600; color:var(--label);">Email Address</label>
+          <input type="email" name="email" placeholder="Email Address" required style="width:100%; padding:12px 14px; border-radius:10px; border:1px solid var(--line); margin-bottom:12px;" />
+
+          <label style="display:block; text-align:left; margin-bottom:8px; font-weight:600; color:var(--label);">Mobile Phone</label>
+          <input type="tel" name="phone" placeholder="Enter Your Mobile Phone" pattern="[0-9+()\\s-]{7,}" style="width:100%; padding:12px 14px; border-radius:10px; border:1px solid var(--line); margin-bottom:10px;" />
+
+          <!-- MULTI-SELECT PREFERENCES (choose any) -->
+          <div class="pref-row" aria-label="Contact preferences">
+            <label><input type="checkbox" name="pref[]" value="sms"> SMS Updates</label>
+            <label><input type="checkbox" name="pref[]" value="email"> Email Updates</label>
+          </div>
+
+          <button type="submit" class="btn btn--primary" style="background:#8fa6b5; border-radius:8px;">Continue</button>
+        </form>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <script src="stepper.js"></script>
+  <script>
+    // Back button: try history.back(), fallback to index.html
+    document.getElementById('backBtn')?.addEventListener('click', function (e) {
+      if (window.history && history.length > 1) return history.back();
+      window.location.href = 'index.html';
+    });
+
+    // Submit -> collect prefs (multi-select), keep flow the same
+    document.getElementById('prelimForm')?.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // Collect selected preferences (can be multiple)
+      const prefs = Array.from(document.querySelectorAll('input[name="pref[]"]:checked'))
+        .map(i => i.value);
+
+      // Save (optional) for later steps if you need it
+      try {
+        localStorage.setItem('prelimContactPrefs', JSON.stringify(prefs));
+      } catch(_) {}
+
+      if (window.setIntakeStep) window.setIntakeStep(3);
+      setTimeout(function(){ window.location.href = 'prelim-next.html'; }, 300);
+    });
+  </script>
+</body>
+</html>

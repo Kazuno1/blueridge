@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Payment | BlueRidge Meds</title>
+<link rel="stylesheet" href="styles.css" />
+<script defer src="stepper.js"></script>
+<style>
+  body {
+    font-family: "Inter", sans-serif;
+    background: #f9fafb;
+    color: #0f2143;
+    margin: 0;
+  }
+
+  .promo-bar {
+    background: #0f2143;
+    color: #fff;
+    text-align: center;
+    padding: 8px 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .topbar {
+    background: #fff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 12px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .nav-btn.back {
+    border: none;
+    background: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: #0f2143;
+  }
+  .logo { height: 40px; }
+
+  .stepper-container { margin-top: 20px; }
+
+  .expect-section {
+    background: #fff;
+    border-radius: 10px;
+    padding: 40px 60px;
+    text-align: center;
+    max-width: 1280px;
+    margin: 40px auto;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+  }
+  .expect-section img.logo-main { width: 110px; margin-bottom: 15px; }
+  .expect-section h3 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 30px;
+    color: #0f2143;
+  }
+  .expect-grid {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .expect-card {
+    background: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    padding: 25px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+  }
+  .expect-card img { width: 50px; height: 50px; margin-bottom: 10px; }
+  .expect-card p {
+    font-weight: 600;
+    color: #0f2143;
+    font-size: 0.95rem;
+  }
+
+  .login-notice {
+    background: #f7f7fa;
+    border-top: 4px solid #1e73be;
+    padding: 14px 20px;
+    max-width: 1280px;
+    margin: 0 auto 40px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #333;
+    font-size: 0.95rem;
+  }
+  .login-notice input[type="checkbox"] { width: 18px; height: 18px; }
+  .login-notice a { color: #1e73be; text-decoration: none; font-weight: 600; }
+  .login-notice a:hover { text-decoration: underline; }
+
+  .container {
+    max-width: 1280px;
+    margin: 0 auto 80px;
+    padding: 0 20px;
+  }
+
+  h2 {
+    font-size: 1.1rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: #0f2143;
+  }
+
+  .info-box {
+    background: #f9f9fb;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 40px;
+    border-left: 4px solid #1e73be;
+  }
+  .info-box h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin: 0 0 8px;
+  }
+  .info-box p {
+    font-size: 0.85rem;
+    color: #6b7280;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .summary-box {
+    background: #fff;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+  }
+
+  .plan-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+  }
+  .plan-item img {
+    width: 60px;
+    height: 60px;
+    border-radius: 6px;
+    margin-right: 16px;
+    object-fit: contain;
+  }
+  .plan-info { flex: 1; }
+  .plan-info h4 { font-size: 1rem; margin: 0; font-weight: 700; }
+  .plan-info p { font-size: 0.9rem; margin: 4px 0 0; color: #6b7280; }
+  .price { font-weight: 700; color: #0f2143; }
+
+  .details-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+  .details-table tr { border-bottom: 1px solid #e5e7eb; }
+  .details-table td { padding: 8px 0; }
+  .details-table td:last-child { text-align: right; font-weight: 600; }
+
+  .billing-box {
+    background: #fff;
+    border-radius: 10px;
+    padding: 25px 30px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+    margin-bottom: 40px;
+  }
+  .billing-box p {
+    margin: 4px 0;
+    font-size: 0.9rem;
+    color: #333;
+  }
+
+  .coupon-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+  }
+  .coupon-row input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+  }
+  .coupon-row button {
+    background: #0f2143;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .payment-box {
+    background: #fff;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+  }
+  .payment-box h3 { font-size: 1rem; font-weight: 700; margin-bottom: 20px; }
+
+  label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+    margin-bottom: 16px;
+    font-size: 0.95rem;
+  }
+
+  .form-row {
+    display: flex;
+    gap: 16px;
+  }
+  .form-row div { flex: 1; }
+
+  .checkout-btn {
+    background: #0f2143;
+    color: #fff;
+    border: none;
+    width: 100%;
+    padding: 14px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.25s ease;
+  }
+  .checkout-btn:hover { background: #1e2d50; }
+</style>
+</head>
+<body>
+
+<div class="promo-bar">Discover the New You | Your True You</div>
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="brand" style="left: 18%;">
+      <button class="nav-btn back" onclick="history.back()">←</button>
+      <img class="logo"
+           src="https://blueridgemeds.com/wp-content/uploads/2024/08/KxBL8CTz1ZiDbTn8PeRg1JLSW4.avif"
+           alt="BlueRidge Meds" />
+    </div>
+    <div class="topbar-actions">
+      <button class="nav-btn phone" aria-label="Call">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="#fff" aria-hidden="true">
+          <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.56.57 1 1 0 011 1v3.61a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.61a1 1 0 011 1c0 1.22.2 2.42.57 3.56a1 1 0 01-.24 1.01l-2.32 2.22z"/>
+        </svg>
+      </button>
+      <button class="nav-btn help">Help</button>
+    </div>
+  </header>
+
+
+<!-- Stepper (current = Payment / step 5) -->
+<div class="stepper-container">
+  <div class="stepper-inner">
+    <div class="brm-stepper" id="intakeStepper" data-count="5" data-step="5" aria-label="Intake progress" role="group">
+      <div class="brm-stepper__wrap" style="--count:5">
+        <div class="brm-stepper__track" aria-hidden="true"></div>
+        <div class="brm-stepper__progress" aria-hidden="true"></div>
+
+        <div class="brm-step" data-step="1"><div class="brm-step__dot" aria-hidden="true">✓</div><div class="brm-step__label">Start</div></div>
+        <div class="brm-step" data-step="2"><div class="brm-step__dot" aria-hidden="true">✓</div><div class="brm-step__label">Information</div></div>
+        <div class="brm-step" data-step="3"><div class="brm-step__dot" aria-hidden="true">✓</div><div class="brm-step__label">Choose Your GLP-1 Plan</div></div>
+        <div class="brm-step" data-step="4"><div class="brm-step__dot" aria-hidden="true">✓</div><div class="brm-step__label">Shipping</div></div>
+        <div class="brm-step brm-step--current" data-step="5"><div class="brm-step__dot" aria-hidden="true">✓</div><div class="brm-step__label">Payment</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Top Note -->
+<section class="info-box" role="note" aria-live="polite" style="max-width:1280px;margin:20px auto;">
+  <h4 style="font-size:1.05rem;font-weight:800;color:#0f2143;margin:0 0 6px;">
+    $0 Due Now – Pay Only If Prescription Is Processed
+  </h4>
+  <p style="margin:0;color:#6b7280;">
+    You have selected the monthly treatment program! There will be a HOLD placed on your credit card,
+    but you will not be billed until after your prescription is approved and processed. You will be
+    invited to check in with your doctor every 30 days.
+  </p>
+</section>
+
+
+<!-- Review and Payment -->
+<div class="container">
+  <h2>Your Plan</h2>
+  <div class="summary-box" id="planSummary"></div>
+
+  <h2>Billing Summary</h2>
+  <div class="billing-box" id="billingSummary"></div>
+
+  <div class="coupon-row">
+    <input type="text" placeholder="Coupon code">
+    <button>Apply</button>
+  </div>
+
+  <div class="payment-box">
+    <h3>Payment method</h3>
+    <form id="paymentForm" novalidate>
+      <label for="cardNumber">Card Number</label>
+      <input id="cardNumber" type="text" placeholder="•••• •••• •••• ••••" inputmode="numeric" autocomplete="cc-number" maxlength="23" required>
+
+      <div class="form-row">
+        <div>
+          <label for="exp">Expiration (MM/YY)</label>
+          <input id="exp" type="text" placeholder="MM / YY" inputmode="numeric" autocomplete="cc-exp" maxlength="7" required>
+        </div>
+        <div>
+          <label for="cvc">Card Security Code</label>
+          <input id="cvc" type="text" placeholder="CSC" inputmode="numeric" autocomplete="cc-csc" maxlength="4" required>
+        </div>
+      </div>
+      <button class="checkout-btn" type="submit">Place order</button>
+    </form>
+  </div>
+</div>
+
+<script>
+/* ---------- Render summaries from localStorage (unchanged) ---------- */
+window.onload = function() {
+  const plan = JSON.parse(localStorage.getItem('selectedPlan')) || {};
+  const boosters = JSON.parse(localStorage.getItem('selectedItems')) || [];
+  const billing = JSON.parse(localStorage.getItem('billingInfo')) || {};
+
+  const boosterItems = boosters.filter(i => i.name !== plan.name);
+  const planPrice = plan.price ? parseFloat(plan.price) : 0;
+  const boosterTotal = boosterItems.reduce((sum, b) => sum + (parseFloat(b.price) || 0), 0);
+  const total = planPrice + boosterTotal;
+
+  let summaryHTML = `
+    <div class="plan-item">
+      <img src="${plan.image || ''}" alt="${plan.name || 'Plan Image'}">
+      <div class="plan-info">
+        <h4>${plan.name || 'Selected Plan'}</h4>
+      </div>
+      <div class="price">$${planPrice.toFixed(2)} / month</div>
+    </div>
+  `;
+  if (boosterItems.length > 0) {
+    summaryHTML += `<div class="section-title" style="font-weight:700;margin-top:20px;">Your Boosters</div>`;
+    boosterItems.forEach(item => {
+      summaryHTML += `
+        <div class="plan-item">
+          <img src="${item.image}" alt="${item.name}">
+          <div class="plan-info"><h4>${item.name}</h4></div>
+          <div class="price">$${parseFloat(item.price).toFixed(2)} / month</div>
+        </div>`;
+    });
+  }
+  summaryHTML += `
+    <table class="details-table" style="margin-top:15px;">
+      <tr><td>Licensed provider review</td><td>Included</td></tr>
+      <tr><td>Standard shipping</td><td>Included</td></tr>
+      <tr><td>On-demand care with a provider</td><td>Included</td></tr>
+      <tr><td><strong>Total due if prescribed</strong></td><td><strong>$${total.toFixed(2)}</strong></td></tr>
+      <tr><td>Due Today</td><td>$0</td></tr>
+    </table>
+  `;
+  document.getElementById('planSummary').innerHTML = summaryHTML;
+
+  document.getElementById('billingSummary').innerHTML = `
+    <p><strong>${billing.firstName || ''} ${billing.lastName || ''}</strong></p>
+    <p>${billing.street || ''}</p>
+    <p>${billing.city || ''}, ${billing.state || ''} ${billing.zip || ''}</p>
+    <p>${billing.email || ''}</p>
+    <p>${billing.phone || ''}</p>
+    <hr style="border:0;border-top:1px solid #eee;margin:12px 0;">
+    <p><strong>Total:</strong> $${total.toFixed(2)}</p>
+  `;
+};
+
+/* ---------- Digit locks + auto-formatting ---------- */
+function keepDigits(str) { return (str || '').replace(/\D+/g, ''); }
+
+// Card number: group by 4, max 19 digits, paste-safe
+(function(){
+  const el = document.getElementById('cardNumber');
+  if (!el) return;
+
+  function formatCard(v) {
+    const digits = keepDigits(v).slice(0, 19);
+    return digits.replace(/(.{4})/g, '$1 ').trim();
+  }
+
+  function onInput() {
+    const start = el.selectionStart;
+    const before = el.value;
+    el.value = formatCard(before);
+
+    // simple caret keep toward end (good UX for most edits)
+    if (document.activeElement === el) el.selectionStart = el.selectionEnd = el.value.length;
+  }
+
+  el.addEventListener('input', onInput);
+  el.addEventListener('paste', (e) => {
+    e.preventDefault();
+    const t = (e.clipboardData || window.clipboardData).getData('text') || '';
+    el.value = formatCard(t);
+    el.dispatchEvent(new Event('input'));
+  });
+  el.addEventListener('drop', (e)=>e.preventDefault());
+})();
+
+// Expiration: MM/YY, clamp MM to 01–12, auto slash
+(function(){
+  const el = document.getElementById('exp');
+  if (!el) return;
+
+  function formatExp(v) {
+    const d = keepDigits(v).slice(0, 4); // MMYY
+    let mm = d.slice(0,2);
+    let yy = d.slice(2,4);
+
+    if (mm.length === 1 && Number(mm[0]) > 1) mm = '0' + mm; // e.g., "3" -> "03"
+    if (mm.length === 2) {
+      let n = Number(mm);
+      if (n === 0) n = 1;
+      if (n > 12) n = 12;
+      mm = String(n).padStart(2,'0');
+    }
+
+    if (yy.length) return `${mm} / ${yy}`;
+    return mm;
+  }
+
+  function onInput() {
+    const val = el.value;
+    el.value = formatExp(val);
+    if (document.activeElement === el) el.selectionStart = el.selectionEnd = el.value.length;
+  }
+
+  el.addEventListener('input', onInput);
+  el.addEventListener('paste', (e)=>{
+    e.preventDefault();
+    const t = (e.clipboardData || window.clipboardData).getData('text') || '';
+    el.value = formatExp(t);
+    el.dispatchEvent(new Event('input'));
+  });
+  el.addEventListener('drop', (e)=>e.preventDefault());
+})();
+
+// CVC: digits only, max 4
+(function(){
+  const el = document.getElementById('cvc');
+  if (!el) return;
+
+  function onInput() {
+    el.value = keepDigits(el.value).slice(0,4);
+  }
+  el.addEventListener('input', onInput);
+  el.addEventListener('paste', (e)=>{
+    e.preventDefault();
+    const t = (e.clipboardData || window.clipboardData).getData('text') || '';
+    el.value = keepDigits(t).slice(0,4);
+    el.dispatchEvent(new Event('input'));
+  });
+  el.addEventListener('drop', (e)=>e.preventDefault());
+})();
+
+/* ---------- Optional client-side check before submit ---------- */
+document.getElementById('paymentForm')?.addEventListener('submit', function(e){
+  // Let native validation run first (required fields)
+  if (!this.checkValidity()) {
+    e.preventDefault();
+    this.reportValidity();
+    return;
+  }
+
+  // Minimal sanity checks (lengths)
+  const cardDigits = keepDigits(document.getElementById('cardNumber').value);
+  const expDigits = keepDigits(document.getElementById('exp').value);
+  const cvcDigits = keepDigits(document.getElementById('cvc').value);
+
+  if (cardDigits.length < 13) { // typical min length across brands
+    e.preventDefault();
+    alert('Please enter a valid card number.');
+    return;
+  }
+  if (expDigits.length !== 4) {
+    e.preventDefault();
+    alert('Please enter a valid expiration in MM/YY.');
+    return;
+  }
+  if (cvcDigits.length < 3) {
+    e.preventDefault();
+    alert('Please enter a valid security code.');
+    return;
+  }
+
+  // Submit naturally or proceed with your payment integration here.
+});
+</script>
+</body>
+</html>

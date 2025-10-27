@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GLP-1 Medication Details | Intake</title>
+
+  <!-- Shared styles + stepper -->
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="stepper.js"></script>
+
+  <style>
+    /* --- Longer, elegant card --- */
+    .med-card {
+      max-width: 1250px;       /* ⬅️ wider than before */
+      margin: 40px auto 60px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 48px 60px;
+      box-shadow: 0 4px 12px rgba(17, 24, 39, .05);
+    }
+
+    /* --- Split columns --- */
+    .med-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      position: relative;
+      align-items: start;
+    }
+
+    .med-split::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: #e7ebf1;
+      transform: translateX(-50%);
+    }
+
+    .med-col { padding: 0 18px; }
+
+    /* --- Headings --- */
+    .med-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #0f2143;
+      line-height: 1.4;
+      text-align: center;
+      margin: 0 0 8px;
+    }
+    .med-sub {
+      color: #6b7280;
+      text-align: center;
+      margin: 0 0 20px;
+      font-size: 1rem;
+    }
+
+    /* --- Inputs --- */
+    .select, .input {
+      width: 320px;           /* ⬅️ slightly wider input boxes */
+      height: 44px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      font-size: 1rem;
+      background: #fff;
+    }
+
+    .select:focus, .input:focus {
+      outline: none;
+      border-color: #b7c5d3;
+      box-shadow: 0 0 0 3px rgba(183,197,211,.25);
+    }
+
+    /* --- Checkbox --- */
+    .check-line {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 12px;
+      color: #415063;
+      font-size: 0.97rem;
+      line-height: 1.5;
+      align-items: start;
+      max-width: 480px;
+    }
+
+    .check-line input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      accent-color: #7e92a7;
+    }
+
+    /* --- Continue button --- */
+    .btn-continue {
+      width: 520px;          /* ⬅️ wider button */
+      max-width: 100%;
+      display: block;
+      margin: 40px auto 0;
+      padding: 14px 20px;
+      border-radius: 10px;
+      border: 0;
+      color: #fff;
+      background: #0f2143;
+      font-weight: 700;
+      font-size: 1.05rem;
+      transition: background .2s ease, transform .15s ease, box-shadow .25s ease;
+    }
+    .btn-continue:hover {
+      background: #6e8398;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(11, 29, 58, 0.12);
+    }
+    .btn-continue[disabled] {
+      opacity: .55;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* --- Mobile Responsive --- */
+    @media (max-width: 900px) {
+      .med-card {
+        max-width: 96%;
+        padding: 30px 20px;
+      }
+      .med-split {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .med-split::after { display: none; }
+      .select, .input { width: 100%; }
+      .check-line { width: 100%; }
+      .btn-continue { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="promo-bar">Discover the New You | Your True You</div>
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="brand" style="left: 18%;">
+      <button class="nav-btn back" onclick="history.back()">←</button>
+      <img class="logo" src="https://blueridgemeds.com/wp-content/uploads/2024/08/KxBL8CTz1ZiDbTn8PeRg1JLSW4.avif" alt="BlueRidge Meds" />
+    </div>
+    <div class="topbar-actions">
+      <button class="nav-btn phone" aria-label="Call">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="#fff" aria-hidden="true">
+          <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.56.57 1 1 0 011 1v3.61a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.61a1 1 0 011 1c0 1.22.2 2.42.57 3.56a1 1 0 01-.24 1.01l-2.32 2.22z"/>
+        </svg>
+      </button>
+      <button class="nav-btn help">Help</button>
+    </div>
+  </header>
+
+  <!-- Centered stepper band (same as your design) -->
+  <div class="stepper-container">
+      <div class="stepper-inner">
+        <!-- reuse the same stepper visuals as preliminary -->
+        <div class="brm-stepper" id="intakeStepper" data-count="5" data-step="2" aria-label="Intake progress" role="group">
+          <div class="brm-stepper__wrap" style="--count:5">
+            <div class="brm-stepper__track" aria-hidden="true"></div>
+            <div class="brm-stepper__progress" aria-hidden="true"></div>
+            <div class="brm-step brm-step--current" data-step="1">
+              <div class="brm-step__dot" aria-hidden="true">✓</div>
+              <div class="brm-step__label">Start</div>
+            </div>
+            <div class="brm-step" data-step="2">
+              <div class="brm-step__dot" aria-hidden="true">✓</div>
+              <div class="brm-step__label">Information</div>
+            </div>
+            <div class="brm-step" data-step="3">
+              <div class="brm-step__dot" aria-hidden="true">✓</div>
+              <div class="brm-step__label">Choose Your GLP-1 Plan</div>
+            </div>
+            <div class="brm-step" data-step="4">
+              <div class="brm-step__dot" aria-hidden="true">✓</div>
+              <div class="brm-step__label">Shipping</div>
+            </div>
+            <div class="brm-step" data-step="5">
+              <div class="brm-step__dot" aria-hidden="true">✓</div>
+              <div class="brm-step__label">Payment</div>
+        </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Form card -->
+  <main class="container">
+    <section class="med-card">
+      <form id="medForm" novalidate>
+        <div class="med-split">
+          <!-- Left -->
+          <div class="med-col">
+            <h3 class="med-title">Which medication have you previously<br>taken or are currently using?</h3>
+            <p class="med-sub">Please select one</p>
+
+            <select id="medication" class="select" aria-describedby="err-med" required>
+  <option value="">Select</option>
+  <option value="Semaglutide">Semaglutide</option>
+  <option value="Tirzepatide">Tirzepatide</option>
+  <option value="Oral Semaglutide">Oral Semaglutide</option>
+  <option value="Oral Tirzepatide">Oral Tirzepatide</option>
+  <option value="Ozempic®">Ozempic®</option>
+  <option value="Wegovy®">Wegovy®</option>
+  <option value="Zepbound®">Zepbound®</option>
+  <option value="Mounjaro®">Mounjaro®</option>
+  <option value="Other">Other</option>
+</select>
+
+            <div id="err-med" style="display:none;color:#b00020;font-size:.9rem;margin-top:6px;">Please select a medication.</div>
+          </div>
+
+          <!-- Right -->
+          <div class="med-col">
+            <h3 class="med-title">What was/is your dosage?</h3>
+            <p class="med-sub">Please enter your dosage</p>
+
+            <input id="dosage" class="input" type="number" step="0.01" min="0" placeholder="x.xx mg" aria-describedby="err-dose" required />
+            <div id="err-dose" style="display:none;color:#b00020;font-size:.9rem;margin-top:6px;">Please enter a valid dosage.</div>
+
+            <label class="check-line">
+              <input type="checkbox" id="discuss" />
+              <span>Would you like to discuss staying on the same dosage or modifying your current dosage with your provider?</span>
+            </label>
+          </div>
+        </div>
+
+        <button id="continueBtn" class="btn-continue" type="submit" disabled>Continue</button>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    (function(){
+      const med = document.getElementById('medication');
+      const dosage = document.getElementById('dosage');
+      const btn = document.getElementById('continueBtn');
+      const errMed = document.getElementById('err-med');
+      const errDose = document.getElementById('err-dose');
+
+      function validate() {
+        const medOk = med.value.trim() !== '';
+        const dose = parseFloat(dosage.value);
+        const doseOk = !isNaN(dose) && dose > 0;
+
+        errMed.style.display  = medOk  ? 'none' : 'block';
+        errDose.style.display = doseOk ? 'none' : 'block';
+
+        btn.disabled = !(medOk && doseOk);
+        return medOk && doseOk;
+      }
+
+      ['change','input','blur'].forEach(evt => {
+        med.addEventListener(evt, validate);
+        dosage.addEventListener(evt, validate);
+      });
+
+      document.getElementById('medForm')?.addEventListener('submit', e => {
+        e.preventDefault();
+        if (!validate()) return;
+        if (window.setIntakeStep) window.setIntakeStep(3);
+        window.location.href = 'choose-plan.html';
+      });
+    })();
+  </script>
+</body>
+</html>

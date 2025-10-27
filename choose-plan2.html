@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Choose Your GLP-1 Plan | Intake</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="stepper.js"></script>
+
+  <style>
+    body {
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      background: #f9fafb;
+      color: #0f2143;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Make jumpstart cards thinner */
+#jumpstart .plans-grid {
+  max-width: 900px;  /* controls the overall width */
+  margin: 0 auto;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+
+    .plans-wrap {
+      max-width: 1260px;
+      margin: 32px auto 64px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 28px 28px 40px;
+      box-shadow: 0 4px 12px rgba(17, 24, 39, .05);
+    }
+
+    .plans-header { text-align:center; margin-bottom:24px; }
+    .plans-header h2 { margin:0 0 16px; font-size:1.3rem; font-weight:800; color:#0f2143; }
+
+    /* Toggle */
+    .toggle {
+      display: inline-flex;
+      border: 2px solid ;
+      border-radius: 40px;
+      overflow: hidden;
+      background: #0f2143;
+    }
+    .toggle button {
+      flex: 1;
+      border: none;
+      background: transparent;
+      color: #fff;
+      font-weight: 700;
+      padding: 12px 28px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+    .toggle button.active {
+      background: #fff;
+      color: #415063;
+    }
+
+    /* Grid */
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 22px;
+      margin-top: 30px;
+    }
+
+    /* Card */
+    .plan-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      transition: all .3s ease;
+    }
+    .plan-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .plan-head {
+      background: #bfd3d5;
+      padding: 14px 16px;
+      text-align: center;
+      font-weight: 800;
+      color: #0f2143;
+    }
+
+    .plan-body {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      flex: 1;
+    }
+
+    .plan-price {
+      font-size: 2rem;
+      color: #415063;
+      font-weight: 800;
+      margin-top: 6px;
+    }
+    .plan-price small {
+      font-size: 1.4rem;
+      color: #6a7b8a;
+    }
+
+    .plan-img {
+      height: 160px;
+      object-fit: contain;
+      margin: 8px 0 12px;
+    }
+
+    .plan-select {
+      margin-top: auto;
+      background: #0f2143;
+      color: #fff;
+      border: 0;
+      border-radius: 8px;
+      padding: 12px 18px;
+      width: 100%;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: background .2s ease, transform .15s ease, box-shadow .25s ease;
+    }
+    .plan-select:hover {
+      background: #5b7187;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(11, 29, 58, .12);
+    }
+
+    .bullets {
+      width: 100%;
+      margin-top: 10px;
+    }
+    .bullets li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      color: #415063;
+      font-size: .95rem;
+      margin: 8px 0;
+    }
+    .tick {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #7e92a7;
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 12px;
+      line-height: 1;
+      transform: translateY(2px);
+      flex: 0 0 18px;
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeIn .3s ease; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Stepper container */
+    .stepper-container { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <div class="promo-bar">Discover the New You | Your True You</div>
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="brand" style="left: 18%;">
+      <button class="nav-btn back" onclick="history.back()">←</button>
+      <img class="logo" src="https://blueridgemeds.com/wp-content/uploads/2024/08/KxBL8CTz1ZiDbTn8PeRg1JLSW4.avif" alt="BlueRidge Meds" />
+    </div>
+  </header>
+
+  <!-- Stepper -->
+  <div class="stepper-container">
+    <div class="stepper-inner">
+      <div class="brm-stepper" id="intakeStepper" data-count="5" data-step="3" aria-label="Intake progress">
+        <div class="brm-stepper__wrap" style="--count:5">
+          <div class="brm-stepper__track"></div>
+          <div class="brm-stepper__progress"></div>
+          <div class="brm-step" data-step="1"><div class="brm-step__dot">✓</div><div class="brm-step__label">Start</div></div>
+          <div class="brm-step" data-step="2"><div class="brm-step__dot">✓</div><div class="brm-step__label">Information</div></div>
+          <div class="brm-step brm-step--current" data-step="3"><div class="brm-step__dot">✓</div><div class="brm-step__label">Choose Your GLP-1 Plan</div></div>
+          <div class="brm-step" data-step="4"><div class="brm-step__dot">✓</div><div class="brm-step__label">Shipping</div></div>
+          <div class="brm-step" data-step="5"><div class="brm-step__dot">✓</div><div class="brm-step__label">Payment</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Plans Section -->
+  <section class="plans-wrap">
+    <div class="plans-header">
+      <h2>CHOOSE YOUR PLAN</h2>
+      <div class="toggle">
+        <button id="monthlyBtn" class="active" onclick="showTab('monthly')">Monthly Payment</button>
+        <button id="jumpstartBtn" onclick="showTab('jumpstart')">Jumpstart (3-months)</button>
+      </div>
+    </div>
+
+    <!-- Monthly Plans -->
+    <div id="monthly" class="tab-content active">
+      <div class="plans-grid">
+
+        <!-- Row 1 -->
+        <article class="plan-card"><div class="plan-head">Tirzepatide Program</div>
+          <div class="plan-body">
+            <div class="plan-price">$397<small>/mo</small></div>
+            <img class="plan-img" src="https://blueridgemeds.wpenginepowered.com/wp-content/uploads/2024/09/Layer-5-1.png" alt="Tirzepatide" />
+            <button class="plan-select" onclick="selectPlan('Tirzepatide Program')">Select</button>
+            <ul class="bullets">
+              <li><span class="tick">✓</span>Includes All Doses</li>
+              <li><span class="tick">✓</span>Once weekly injections</li>
+              <li><span class="tick">✓</span>Doctor’s visits included</li>
+              <li><span class="tick">✓</span>Unlimited provider support</li>
+              <li><span class="tick">✓</span>Same price regardless of dosage</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="plan-card"><div class="plan-head">Semaglutide Program</div>
+          <div class="plan-body">
+            <div class="plan-price">$297<small>/mo</small></div>
+            <img class="plan-img" src="https://blueridgemeds.wpenginepowered.com/wp-content/uploads/2024/09/BlueRidge-Semaglutide-1-bottle-1-1.png" alt="Semaglutide" />
+            <button class="plan-select" onclick="selectPlan('Semaglutide Program')">Select</button>
+            <ul class="bullets">
+              <li><span class="tick">✓</span>Includes All Doses</li>
+              <li><span class="tick">✓</span>Once weekly injections</li>
+              <li><span class="tick">✓</span>Doctor’s visits included</li>
+              <li><span class="tick">✓</span>Unlimited provider support</li>
+              <li><span class="tick">✓</span>Same price regardless of dosage</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="plan-card"><div class="plan-head">Oral Tirzepatide Program</div>
+          <div class="plan-body">
+            <div class="plan-price">$249<small>/mo</small></div>
+            <img class="plan-img" src="https://scontent.fmnl9-3.fna.fbcdn.net/v/t1.15752-9/567104570_1099845621967125_2069504645156650773_n.png?_nc_cat=100&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeHZse1Wma4p92amP3tGoaeBNx_xrQPqLgE3H_GtA-ouARyd8wub__RRgqmxv3ZCOYOV8E1Ug7iJzQQhbRN4rrXq&_nc_ohc=s4COra12h2QQ7kNvwGtylZd&_nc_oc=Adlhp5qUb77Cn0muwHr7Ph5oVnZtA_wrsg7_Jg42vBX01u610MiIZNYrMTdCPkB2plM&_nc_zt=23&_nc_ht=scontent.fmnl9-3.fna&oh=03_Q7cD3gEptAHcjNfNRC_2hy74WEgaTNl4s90dluQT375yRNkJeg&oe=6925A113" alt="Oral Tirzepatide" />
+            <button class="plan-select" onclick="selectPlan('Oral Tirzepatide Program')">Select</button>
+            <ul class="bullets">
+              <li><span class="tick">✓</span>Includes All Doses</li>
+              <li><span class="tick">✓</span>Once weekly injections</li>
+              <li><span class="tick">✓</span>Doctor’s visits included</li>
+              <li><span class="tick">✓</span>Unlimited provider support</li>
+              <li><span class="tick">✓</span>Same price regardless of dosage</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="plan-card"><div class="plan-head">Oral Semaglutide Program</div>
+          <div class="plan-body">
+            <div class="plan-price">$249<small>/mo</small></div>
+            <img class="plan-img" src="https://scontent.fmnl9-4.fna.fbcdn.net/v/t1.15752-9/566422791_1051037090380152_2875712364310090435_n.png?_nc_cat=106&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeGyXtDH7c-r8h7j3NIDmQo2dL18a9fpTtR0vXxr1-lO1DO6GwBLhz1CcAucbCKN38pHwgJk4vP3jm1MLbgahCy_&_nc_ohc=h-v8vaQ5nRQQ7kNvwFrddnP&_nc_oc=AdmsABo9t5iDBIk0IG27iuIzFiDttG48pEkADdryEqLx3MdgviSX8KuSUJU1yvRtedg&_nc_zt=23&_nc_ht=scontent.fmnl9-4.fna&oh=03_Q7cD3gFrDNx8iJDNf6kpOTiCEr2Cyl02e_KE3rD7fWkPMO4fvQ&oe=69257DF8" alt="Oral Semaglutide" />
+            <button class="plan-select" onclick="selectPlan('Oral Semaglutide Program')">Select</button>
+            <ul class="bullets">
+              <li><span class="tick">✓</span>Includes All Doses</li>
+              <li><span class="tick">✓</span>Once weekly injections</li>
+              <li><span class="tick">✓</span>Doctor’s visits included</li>
+              <li><span class="tick">✓</span>Unlimited provider support</li>
+              <li><span class="tick">✓</span>Same price regardless of dosage</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Row 2 -->
+        <article class="plan-card"><div class="plan-head">Injectible MIC Program</div>
+          <div class="plan-body">
+            <div class="plan-price">$60<small>/mo</small></div>
+            <img class="plan-img" src="https://blueridgemeds.com/wp-content/uploads/2025/09/MIC-scaled.png" alt="MIC" />
+            <button class="plan-select" onclick="selectPlan('Injectible MIC Program')">Select</button>
+            <ul class="bullets">
+              <li><span class="tick">✓</span>Includes All Doses</li>
+              <li><span class="tick">✓</span>Doctor’s visits included</li>
+              <li><span class="tick">✓</span>Unlimited provider support</li>
+              <li><span class="tick">✓</span>Pause or cancel anytime</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="plan-card"><div class="plan-head">Injectible B12 Program</div>
+          <div class="plan-body">
+            <div class="plan-price">$129<small>/mo</small></div>
+            <img class="plan-img" src="https://blueridgemeds.com/wp-content/uploads/2025/09/B12-2-scaled.png" alt="B12" />
+            <button class="plan-select" onclick="selectPlan('Injectible B12 Program')">Select</button>
+            <ul class="bullets">
+              <li><span class="tick">✓</span>Includes All Doses</li>
+              <li><span class="tick">✓</span>Doctor’s visits included</li>
+              <li><span class="tick">✓</span>Unlimited provider support</li>
+              <li><span class="tick">✓</span>Pause or cancel anytime</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="plan-card"><div class="plan-head">Injectible Sermorelin Program</div>
+          <div class="plan-body">
+            <div class="plan-price">$249<small>/mo</small></div>
+            <img class="plan-img" src="https://blueridgemeds.com/wp-content/uploads/2025/09/SERMORELIN-scaled.png" alt="Sermorelin" />
+            <button class="plan-select" onclick="selectPlan('Injectible Sermorelin Program')">Select</button>
+            <ul class="bullets">
+              <li><span class="tick">✓</span>Includes All Doses</li>
+              <li><span class="tick">✓</span>Doctor’s visits included</li>
+              <li><span class="tick">✓</span>Unlimited provider support</li>
+              <li><span class="tick">✓</span>Pause or cancel anytime</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="plan-card"><div class="plan-head">Injectible Glutathione Program</div>
+          <div class="plan-body">
+            <div class="plan-price">$179<small>/mo</small></div>
+            <img class="plan-img" src="https://blueridgemeds.com/wp-content/uploads/2025/09/GLUTATHIONE-scaled.png" alt="Glutathione" />
+            <button class="plan-select" onclick="selectPlan('Injectible Glutathione Program')">Select</button>
+            <ul class="bullets">
+              <li><span class="tick">✓</span>Includes All Doses</li>
+              <li><span class="tick">✓</span>Doctor’s visits included</li>
+              <li><span class="tick">✓</span>Unlimited provider support</li>
+              <li><span class="tick">✓</span>Pause or cancel anytime</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- Jumpstart Plans -->
+    <div id="jumpstart" class="tab-content">
+      <div class="plans-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); justify-content:center;">
+        <article class="plan-card"><div class="plan-head">Tirzepatide Program</div>
+          <div class="plan-body">
+            <div class="plan-price">$349<small>/mo</small></div>
+            <img class="plan-img" src="https://blueridgemeds.wpenginepowered.com/wp-content/uploads/2024/09/Layer-5-1.png" alt="Tirzepatide" />
+            <button class="plan-select" onclick="selectPlan('Tirzepatide Program')">Select</button>
+            <ul class="bullets">
+              <li><span class="tick">✓</span>Discounted for first 3 months</li>
+              <li><span class="tick">✓</span>Includes all doses</li>
+              <li><span class="tick">✓</span>Doctor’s visits included</li>
+              <li><span class="tick">✓</span>Unlimited provider support</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="plan-card"><div class="plan-head">Semaglutide Program</div>
+          <div class="plan-body">
+            <div class="plan-price">$249<small>/mo</small></div>
+            <img class="plan-img" src="https://blueridgemeds.wpenginepowered.com/wp-content/uploads/2024/09/BlueRidge-Semaglutide-1-bottle-1-1.png" alt="Semaglutide" />
+            <button class="plan-select" onclick="selectPlan('Semaglutide Program')">Select</button>
+            <ul class="bullets">
+              <li><span class="tick">✓</span>Discounted for first 3 months</li>
+              <li><span class="tick">✓</span>Includes all doses</li>
+…  
+              <li><span class="tick">✓</span>Doctor’s visits included</li>  
+              <li><span class="tick">✓</span>Unlimited provider support</li>  
+            </ul>  
+          </div>  
+        </article>  
+      </div>  
+    </div>  
+  </section>  
+
+  <script>
+function showTab(tab) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.getElementById(tab).classList.add('active');
+  document.getElementById('monthlyBtn').classList.toggle('active', tab === 'monthly');
+  document.getElementById('jumpstartBtn').classList.toggle('active', tab === 'jumpstart');
+}
+
+// Save full plan details into localStorage
+function selectPlan(planName) {
+  const card = [...document.querySelectorAll('.plan-card')]
+    .find(c => c.querySelector('.plan-head').innerText === planName);
+
+  if (!card) return alert('Plan not found.');
+
+  const planData = {
+    name: planName,
+    price: card.querySelector('.plan-price').innerText.replace('/mo', '').replace('$', '').trim(),
+    image: card.querySelector('.plan-img').src
+  };
+
+  // Store the full plan
+  try {
+    localStorage.setItem('selectedPlan', JSON.stringify(planData));
+    localStorage.setItem('chosen_plan', planName); // legacy key if needed
+  } catch (e) {
+    console.error("LocalStorage error:", e);
+  }
+
+  // Redirect to correct page
+  const map = {
+    'Tirzepatide Program': 'plan-tirzepatide.html',
+    'Semaglutide Program': 'plan-semaglutide.html',
+    'Oral Tirzepatide Program': 'plan-oral-tirzepatide.html',
+    'Oral Semaglutide Program': 'plan-oral-semaglutide.html',
+    'Injectible MIC Program': 'plan-mic.html',
+    'Injectible B12 Program': 'plan-b12.html',
+    'Injectible Sermorelin Program': 'plan-sermorelin.html',
+    'Injectible Glutathione Program': 'plan-glutathione.html'
+  };
+
+  window.location.href = map[planName] || 'plan-tirzepatide.html';
+}
+</script>
+</body>  
+</html> 
